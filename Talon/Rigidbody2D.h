@@ -3,6 +3,8 @@
 #include "MindCore.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "BoxCollider.h"
+#include "CollisionManager.h"
 
 #include "memory"
 #include "iostream"
@@ -25,11 +27,11 @@ public:
 
 	float gravity_ = 9.81f;
 
-	float max_velocity_ = 10.0f;
+	float max_velocity_ = 5.0f;
 
 	bool use_gravity_ = true;
 
-	bool is_kinematic_ = true;
+	bool is_kinematic_ = false;
 
 	void Awake() override{
 		if (game_object_) {
@@ -71,11 +73,46 @@ public:
 		acceleration_ = { 0.0f, 0.0f };
 	}
 
+	void CheckAndResolveCollision() {
+		auto transform = game_object_->GetTransform();
+		auto collider = game_object_->GetComponent<BoxCollider>();
+		if (!transform || !collider) return;
+
+		int stepsX = static_cast<int>(std::abs(velocity_.x));
+		int signX = (velocity_.x > 0) ? 1 : -1;
+
+		for (int i = 0; i < stepsX; ++i) {
+			transform->position_.x += signX;
+
+			SDL_Rect testRect = collider->GetBounds();
+			if (CollisionManager::CheckCollision(game_object_, testRect)) {
+				transform->position_.x -= signX;
+				velocity_.x = 0;
+				break;
+			}
+		}
+
+		int stepsY = static_cast<int>(std::abs(velocity_.y));
+		int signY = (velocity_.y > 0) ? 1 : -1;
+
+		for (int i = 0; i < stepsY; ++i) {
+			transform->position_.y += signY;
+
+			SDL_Rect testRect = collider->GetBounds();
+			if (CollisionManager::CheckCollision(game_object_, testRect)) {
+				transform->position_.y -= signY;
+				velocity_.y = 0;
+				break;
+			}
+		}
+	}
+
+
 	void Update() override {
 		if (!transform_ || is_kinematic_) return;
 
 		if (use_gravity_) {
-			acceleration_.y += gravity_;
+			acceleration_.y += gravity_; 
 		}
 
 		velocity_.x += acceleration_.x;
@@ -89,8 +126,7 @@ public:
 
 		ClampVelocity();
 
-		transform_->position_.x += velocity_.x;
-		transform_->position_.y += velocity_.y;
+		CheckAndResolveCollision();
 
 		acceleration_ = { 0.0f, 0.0f };
 	}
