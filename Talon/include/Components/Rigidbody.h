@@ -31,8 +31,6 @@ public:
 
 	void Awake() override;
 
-	void ClampVelocity();
-
 	void AddForce(const Vector2& force);
 
 	void SetVelocity(const Vector2& new_velocity);

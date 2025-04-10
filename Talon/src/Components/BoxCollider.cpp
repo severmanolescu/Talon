@@ -5,8 +5,8 @@ SDL_Rect BoxCollider::GetBounds() const {
 	if (!transform_) return { 0, 0, 0, 0 };
 
 	return SDL_Rect{
-		static_cast<int>(transform_->position_.x),
-		static_cast<int>(transform_->position_.y),
+		static_cast<int>(transform_->position_.x + offset_.x),
+		static_cast<int>(transform_->position_.y + offset_.y),
 		width_,
 		height_
 	};

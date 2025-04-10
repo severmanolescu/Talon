@@ -7,8 +7,10 @@
 #include "SpriteRenderer.h"
 
 #include "memory"
-
 #include "vector"
+
+#include <functional>
+#include <unordered_map>
 
 class Animator : public MindCore {
 public:
@@ -17,6 +19,8 @@ public:
 
 	short columns_ = 0;
 	short rows_ = 0;
+
+	std::unordered_map<int, std::vector<std::function<void()>>> frame_events_;
 
 	void Awake() override;
 	void Start() override;

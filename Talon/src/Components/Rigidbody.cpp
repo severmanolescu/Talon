@@ -15,12 +15,6 @@ void Rigidbody::Awake() {
 	}
 }
 
-void Rigidbody::ClampVelocity() {
-	velocity_.x = clamp(velocity_.x, -max_velocity_, max_velocity_);
-	velocity_.y = clamp(velocity_.y, -max_velocity_, max_velocity_);
-
-}
-
 void Rigidbody::AddForce(const Vector2& force) {
 	acceleration_.x += force.x / mass_;
 	acceleration_.y += force.y / mass_;
@@ -79,7 +73,6 @@ void Rigidbody::CheckAndResolveCollision() {
 	}
 }
 
-
 void Rigidbody::Update() {
 	if (!transform_ || is_kinematic_) return;
 
@@ -96,7 +89,7 @@ void Rigidbody::Update() {
 	if (std::abs(velocity_.x) < 0.01f) velocity_.x = 0.0f;
 	if (std::abs(velocity_.y) < 0.01f) velocity_.y = 0.0f;
 
-	ClampVelocity();
+	velocity_.Clamp(-max_velocity_, max_velocity_);
 
 	CheckAndResolveCollision();
 

@@ -25,12 +25,21 @@ void Animator::Update() {
 
 		sprite_renderer_->SetSourceRect(frame_clips_[frame_index_]);
 
+        if (frame_events_.find(frame_index_) != frame_events_.end()) {
+            for (auto& function : frame_events_[frame_index_]) {
+                function();
+            }
+        }
+
 		frame_index_++;
 	}
 }
 
 void Animator::SetSpriteSheet(std::string path, SDL_Renderer* renderer) {
     renderer_ = renderer;
+    frame_clips_.clear();
+    frame_index_ = 0;
+
     if (spritesheet_) {
         SDL_DestroyTexture(spritesheet_);
         spritesheet_ = nullptr;
@@ -47,6 +56,10 @@ void Animator::SetSpriteSheet(std::string path, SDL_Renderer* renderer) {
 
     if (!spritesheet_) {
         std::cerr << "[SpriteRenderer] Failed to create texture: " << path << "\n";
+    }
+
+    if (sprite_renderer_) {
+        sprite_renderer_->SetTexture(spritesheet_);
     }
 
     for (int row = 0; row < rows_; row++) {

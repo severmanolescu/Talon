@@ -12,6 +12,8 @@ public:
 	int width_ = 50;
 	int height_ = 50;
 
+	Vector2 offset_ = { .0f, .0f };
+
 	SDL_Rect GetBounds() const;
 
 	void Awake() override;

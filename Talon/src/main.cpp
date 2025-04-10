@@ -23,13 +23,30 @@ std::vector<std::shared_ptr<GameObject>> scene;
 
 void SetUpPlayer() {
 	auto player = std::make_shared<GameObject>("Player");
-	player->AddComponent(std::make_shared<PlayerController>());
+	
+
+	std::shared_ptr<PlayerController> player_controller = std::make_shared<PlayerController>();
+
+	player_controller->renderer_ = window.GetRenderer();
+
+	player_controller->idle_up_ = "./assets/player/player_idle_up.png";
+	player_controller->idle_down_ = "./assets/player/player_idle_down.png";
+	player_controller->idle_left_ = "./assets/player/player_idle_left.png";
+	player_controller->idle_right_ = "./assets/player/player_idle_right.png";
+
+	player_controller->walk_up_ = "./assets/player/player_walk_up.png";
+	player_controller->walk_down_ = "./assets/player/player_walk_down.png";
+	player_controller->walk_left_ = "./assets/player/player_walk_left.png";
+	player_controller->walk_right_ = "./assets/player/player_walk_right.png";
+
+	player->AddComponent(player_controller);
 
 	// Player BoxCollider
 	std::shared_ptr<BoxCollider> box_collider_player = std::make_shared<BoxCollider>();
 
-	box_collider_player->width_ = 32;
-	box_collider_player->height_ = 64;
+	box_collider_player->width_ = 25;
+	box_collider_player->height_ = 20;
+	box_collider_player->offset_ = { 4, 40 };
 	box_collider_player->draw_debug_ = true;
 
 	player->AddComponent(box_collider_player);
@@ -54,17 +71,19 @@ void SetUpPlayer() {
 	// Set Player position
 	player->GetTransform()->position_ = { 100.0f, 150.0f };
 
+	// Set Animator
 	std::shared_ptr<Animator> animator = std::make_shared<Animator>();
-
-	animator->sprite_width_ = 16;
-	animator->sprite_height_ = 32;
 
 	animator->columns_ = 6;
 	animator->rows_ = 1;
 
+	//animator->frame_events_[2].push_back([]() {
+	//	std::cout << "Trigger!";
+	//	});
+
 	player->AddComponent(animator);
 
-	animator->SetSpriteSheet("./assets/player/player_idle_down.png", window.GetRenderer());
+	//animator->SetSpriteSheet("./assets/player/player_idle_down.png", window.GetRenderer());
 
 	scene.push_back(player);
 }
