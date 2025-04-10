@@ -1,11 +1,12 @@
 #define SDL_MAIN_HANDLED
+
 #include <SDL2/SDL.h>
 
 #include "WindowManager.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "PlayerController.h"
-#include "Rigidbody2D.h"
+#include "Rigidbody.h"
 #include "SpriteRenderer.h"
 #include "InputSystem.h"
 #include "BoxCollider.h"
@@ -27,7 +28,7 @@ int main() {
 	auto player = std::make_shared<GameObject>("Player");
 	player->AddComponent(std::make_shared<PlayerController>());
 	player->AddComponent(std::make_shared<BoxCollider>());
-	auto rigidbody = std::make_shared<Rigidbody2D>();
+	auto rigidbody = std::make_shared<Rigidbody>();
 
 	player->AddComponent(rigidbody);
 

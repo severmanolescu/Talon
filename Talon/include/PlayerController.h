@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MindCore.h"
-#include "Rigidbody2D.h"
+#include "Rigidbody.h"
 #include "BoxCollider.h"
 
 #include "memory"
@@ -19,6 +19,6 @@ public:
 	Vector2 jump_power_ = {.0f , -10.0f};
 
 private:
-	std::shared_ptr<Rigidbody2D> rigidbody_;
+	std::shared_ptr<Rigidbody> rigidbody_;
 	std::shared_ptr<BoxCollider> box_collider_;
 };

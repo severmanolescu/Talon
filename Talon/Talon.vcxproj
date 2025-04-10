@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\sever\source\repos\Talon\Talon\include;C:\Users\sever\source\repos\Talon\Talon\include\System;C:\Users\sever\source\repos\Talon\Talon\include\Core;C:\Users\sever\source\repos\Talon\Talon\include\Components;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -140,23 +140,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BoxCollider.h" />
-    <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="InputSystem.h" />
-    <ClInclude Include="MindCore.h" />
-    <ClInclude Include="PhysicsUtils.h" />
-    <ClInclude Include="PlayerController.h" />
-    <ClInclude Include="Rigidbody2D.h" />
-    <ClInclude Include="SpriteRenderer.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="Vector2.h" />
-    <ClInclude Include="WindowManager.h" />
+    <ClInclude Include="include\Components\BoxCollider.h" />
+    <ClInclude Include="include\Components\Rigidbody.h" />
+    <ClInclude Include="include\Components\SpriteRenderer.h" />
+    <ClInclude Include="include\Core\GameObject.h" />
+    <ClInclude Include="include\Core\MindCore.h" />
+    <ClInclude Include="include\Core\Transform.h" />
+    <ClInclude Include="include\PhysicsUtils.h" />
+    <ClInclude Include="include\PlayerController.h" />
+    <ClInclude Include="include\System\CollisionManager.h" />
+    <ClInclude Include="include\System\InputSystem.h" />
+    <ClInclude Include="include\System\WindowManager.h" />
+    <ClInclude Include="include\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MindCore.cpp" />
-    <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="src\Components\BoxCollider.cpp" />
+    <ClCompile Include="src\Components\Rigidbody.cpp" />
+    <ClCompile Include="src\Components\SpriteRenderer.cpp" />
+    <ClCompile Include="src\Core\GameObject.cpp" />
+    <ClCompile Include="src\Core\MindCore.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\PlayerController.cpp" />
+    <ClCompile Include="src\System\WindowManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

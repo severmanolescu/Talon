@@ -1,11 +1,9 @@
 #include "PlayerController.h"
 #include "InputSystem.h"
-#include "Transform.h"
 #include "GameObject.h"
-#include "CollisionManager.h"
 
 void PlayerController::Awake() {
-	rigidbody_ = game_object_->GetComponent<Rigidbody2D>();
+	rigidbody_ = game_object_->GetComponent<Rigidbody>();
 	box_collider_ = game_object_->GetComponent<BoxCollider>();
 }
 

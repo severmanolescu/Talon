@@ -1,10 +1,11 @@
 #pragma once
 
-#include <vector>
-#include <memory>
 #include "GameObject.h"
 #include "BoxCollider.h"
-#include "PhysicsUtils.h" // where CheckCollision() lives
+#include "PhysicsUtils.h"
+
+#include <vector>
+#include <memory>
 
 class CollisionManager {
 public:
