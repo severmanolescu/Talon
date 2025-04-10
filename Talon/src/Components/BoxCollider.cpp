@@ -12,6 +12,14 @@ SDL_Rect BoxCollider::GetBounds() const {
 	};
 }
 
+void BoxCollider::DrawDebug(SDL_Renderer* renderer) {
+	if (!draw_debug_ || !renderer || !transform_) return;
+
+	SDL_Rect rect = GetBounds();
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // green
+	SDL_RenderDrawRect(renderer, &rect);
+}
+
 void BoxCollider::Awake(){
 	transform_ = game_object_->GetTransform();
 }

@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Components\Animator.h" />
     <ClInclude Include="include\Components\BoxCollider.h" />
     <ClInclude Include="include\Components\Rigidbody.h" />
     <ClInclude Include="include\Components\SpriteRenderer.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="include\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\Animator.cpp" />
     <ClCompile Include="src\Components\BoxCollider.cpp" />
     <ClCompile Include="src\Components\Rigidbody.cpp" />
     <ClCompile Include="src\Components\SpriteRenderer.cpp" />
@@ -162,6 +164,12 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PlayerController.cpp" />
     <ClCompile Include="src\System\WindowManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\player\grass.png" />
+    <Image Include="assets\player\grass_tiles.png" />
+    <Image Include="assets\player\player_down.png" />
+    <Image Include="assets\player\player_idle_down.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

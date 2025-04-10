@@ -16,6 +16,10 @@ public:
 
 	void Awake() override;
 
+	void DrawDebug(SDL_Renderer* renderer);
+
+	bool draw_debug_ = false;
+
 private:
 	std::shared_ptr<Transform> transform_;
 };

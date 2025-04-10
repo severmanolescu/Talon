@@ -31,6 +31,12 @@
     <Filter Include="Source Files\System">
       <UniqueIdentifier>{59df96c6-2502-4bc3-8857-31bcf115ffbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Assets">
+      <UniqueIdentifier>{4ebfcc9b-b182-4943-9826-4cc6176a8dd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Assets\Player">
+      <UniqueIdentifier>{ba2f2799-f6c4-4d6a-bf60-e85c074d617f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\BoxCollider.h">
@@ -69,6 +75,9 @@
     <ClInclude Include="include\Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Components\Animator.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\BoxCollider.cpp">
@@ -95,5 +104,22 @@
     <ClCompile Include="src\PlayerController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Components\Animator.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\player\grass.png">
+      <Filter>Resource Files\Assets\Player</Filter>
+    </Image>
+    <Image Include="assets\player\grass_tiles.png">
+      <Filter>Resource Files\Assets\Player</Filter>
+    </Image>
+    <Image Include="assets\player\player_down.png">
+      <Filter>Resource Files\Assets\Player</Filter>
+    </Image>
+    <Image Include="assets\player\player_idle_down.png">
+      <Filter>Resource Files\Assets\Player</Filter>
+    </Image>
   </ItemGroup>
 </Project>
