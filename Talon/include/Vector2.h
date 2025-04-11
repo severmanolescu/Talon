@@ -1,5 +1,6 @@
 #pragma once
 
+#include "string"
 #include "cmath"
 
 struct Vector2 {
@@ -12,6 +13,10 @@ struct Vector2 {
 
 	float Magnitude() const {
 		return std::sqrt(x * x + y * y);
+	}
+
+	std::string ToString() const {
+		return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
 	}
 
 	void Normalize() {

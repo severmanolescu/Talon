@@ -16,7 +16,7 @@ void BoxCollider::DrawDebug(SDL_Renderer* renderer) {
 	if (!draw_debug_ || !renderer || !transform_) return;
 
 	SDL_Rect rect = GetBounds();
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // green
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 	SDL_RenderDrawRect(renderer, &rect);
 }
 

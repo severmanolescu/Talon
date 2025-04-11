@@ -29,7 +29,7 @@ struct pair_hash {
 
 class PlayerController : public MindCore {
 public:
-	float walk_speed_ = 1.0f;
+	float walk_speed_ = 10.0f;
 	float sprint_speed_multiplier_ = 2.0f;
 
 	Vector2 jump_power_ = { .0f , -10.0f };

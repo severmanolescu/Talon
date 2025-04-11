@@ -94,9 +94,14 @@ void PlayerController::Update() {
 
 	SetAnimation();
 
-	movement.Normalize();
+	if (movement.x != 0.0f || movement.y != 0.0f) {
+		movement.Normalize();
 
-	rigidbody_->AddForce(movement * .5f);
+		movement *= walk_speed_;
+
+		rigidbody_->SetVelocity(movement * 0.5f);
+	}
+
 
 	if (InputSystem::GetKey(SDL_SCANCODE_SPACE) && rigidbody_->use_gravity_) {
 		rigidbody_->AddForce(jump_power_);

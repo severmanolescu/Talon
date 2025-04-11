@@ -23,7 +23,7 @@ public:
 
 	float gravity_ = 9.81f;
 
-	float max_velocity_ = 5.0f;
+	float max_velocity_ = 50.0f;
 
 	bool use_gravity_ = true;
 
