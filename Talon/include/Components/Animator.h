@@ -12,6 +12,8 @@
 #include <functional>
 #include <unordered_map>
 
+class AnimatorStateMachine;
+
 class Animator : public MindCore {
 public:
 	short sprite_width_ = 16;
@@ -28,12 +30,17 @@ public:
 
 	void SetSpriteSheet(std::string path, SDL_Renderer* renderer);
 
+	SDL_Renderer* GetRender() {
+		return renderer_;
+	}
 private:
+	std::shared_ptr<AnimatorStateMachine> animator_state_machine_;
+
 	std::shared_ptr<SpriteRenderer> sprite_renderer_;
 
-	SDL_Renderer* renderer_;
+	SDL_Renderer* renderer_ = nullptr;
 
-	SDL_Texture* spritesheet_;
+	SDL_Texture* spritesheet_ = nullptr;
 
 	std::vector<SDL_Rect> frame_clips_;
 

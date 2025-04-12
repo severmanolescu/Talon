@@ -1,3 +1,4 @@
+#include "AnimatorStateMachine.h"
 #include "PlayerController.h"
 #include "InputSystem.h"
 #include "GameObject.h"
@@ -7,6 +8,9 @@
 void PlayerController::Awake() {
 	rigidbody_ = game_object_->GetComponent<Rigidbody>();
 	animator_ = game_object_->GetComponent<Animator>();
+
+	animator_->sprite_width_ = 16;
+	animator_->sprite_height_ = 32;
 
 	last_state_ = std::make_pair(animation_state_, direction_);
 
@@ -60,28 +64,28 @@ void PlayerController::Update() {
 
 	Vector2 movement = { 0, 0 };
 
-	if (InputSystem::GetKey(SDL_SCANCODE_W)) {
+	if (InputSystem::GetKey("MoveUp")) {
 		movement.y -= 1.0f;
 
 		direction_ = Direction::Up;
 	}
-	if (InputSystem::GetKey(SDL_SCANCODE_S)){
+	if (InputSystem::GetKey("MoveDown")) {
 		movement.y += 1.0f;
 		
 		direction_ = Direction::Down;
 	}
-	if (InputSystem::GetKey(SDL_SCANCODE_A)) { 
+	if (InputSystem::GetKey("MoveLeft")) {
 		movement.x -= 1.0f; 
 
 		direction_ = Direction::Left;
 	}
-	if (InputSystem::GetKey(SDL_SCANCODE_D)) {
+	if (InputSystem::GetKey("MoveRight")) {
 		movement.x += 1.0f;
 
 		direction_ = Direction::Right;
 	}
 
-	if (InputSystem::GetKey(SDL_SCANCODE_LSHIFT)) {
+	if (InputSystem::GetKey("Sprint")) {
 		movement *= sprint_speed_multiplier_;
 	}
 
@@ -103,7 +107,7 @@ void PlayerController::Update() {
 	}
 
 
-	if (InputSystem::GetKey(SDL_SCANCODE_SPACE) && rigidbody_->use_gravity_) {
+	if (InputSystem::GetKey("Jump") && rigidbody_->use_gravity_) {
 		rigidbody_->AddForce(jump_power_);
 	}
 

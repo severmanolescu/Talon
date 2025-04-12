@@ -1,0 +1,9 @@
+{
+  "Jump": "Space",
+  "MoveLeft": "A",
+  "MoveRight": "D",
+  "MoveUp": "W",
+  "MoveDown": "S",
+  "Sprint": "Left Shift",
+  "Pause": "Escape"
+}

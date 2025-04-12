@@ -37,6 +37,12 @@
     <Filter Include="Resource Files\Assets\Player">
       <UniqueIdentifier>{ba2f2799-f6c4-4d6a-bf60-e85c074d617f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\config">
+      <UniqueIdentifier>{16467392-e22f-4e24-b62f-72bfdfca4923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{fe79a200-2c7f-45d3-bc08-473c6eb2acc5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\BoxCollider.h">
@@ -78,6 +84,12 @@
     <ClInclude Include="include\Components\Animator.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="include\System\AnimatorStateMachine.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\json.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\BoxCollider.cpp">
@@ -107,6 +119,12 @@
     <ClCompile Include="src\Components\Animator.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="src\System\AnimatorStateMachine.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\InputSystem.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\player\grass.png">
@@ -121,5 +139,10 @@
     <Image Include="assets\player\player_idle_down.png">
       <Filter>Resource Files\Assets\Player</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\config\input.json">
+      <Filter>Resource Files\config</Filter>
+    </None>
   </ItemGroup>
 </Project>

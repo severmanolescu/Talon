@@ -12,6 +12,8 @@
 #include "BoxCollider.h"
 #include "CollisionManager.h"
 #include "Animator.h"
+#include "AnimatorStateMachine.h"
+#include "InputSystem.h"
 
 #include <vector>
 #include <memory>
@@ -24,7 +26,6 @@ std::vector<std::shared_ptr<GameObject>> scene;
 void SetUpPlayer() {
 	auto player = std::make_shared<GameObject>("Player");
 	
-
 	std::shared_ptr<PlayerController> player_controller = std::make_shared<PlayerController>();
 
 	player_controller->renderer_ = window.GetRenderer();
@@ -85,6 +86,9 @@ void SetUpPlayer() {
 
 	//animator->SetSpriteSheet("./assets/player/player_idle_down.png", window.GetRenderer());
 
+    std::shared_ptr<AnimatorStateMachine> animator_state_machine = std::make_shared<AnimatorStateMachine>();  
+
+    player->AddComponent(animator_state_machine);
 	scene.push_back(player);
 }
 
@@ -92,6 +96,8 @@ int main() {
 	if (!window.Init("Talon Engine", 800, 600)) {
 		return -1;
 	}
+
+	InputSystem::LoadFromJson("./assets/config/input.json");
 
 	SetUpPlayer();
 

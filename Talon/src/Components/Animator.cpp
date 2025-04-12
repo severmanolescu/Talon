@@ -1,10 +1,12 @@
 #include "Animator.h"
 #include "GameObject.h"
+#include "AnimatorStateMachine.h"
 
 #include "iostream"
 
 void Animator::Awake() {
 	sprite_renderer_ = game_object_->GetComponent<SpriteRenderer>();
+	animator_state_machine_ = game_object_->GetComponent<AnimatorStateMachine>();
 }
 
 void Animator::Start() {

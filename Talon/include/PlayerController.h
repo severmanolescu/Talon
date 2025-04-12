@@ -55,8 +55,8 @@ private:
 	std::shared_ptr<Rigidbody> rigidbody_;
 	std::shared_ptr<Animator> animator_;
 
-	AnimationState animation_state_;
-	Direction direction_;
+	AnimationState animation_state_ = AnimationState::Idle;
+	Direction direction_ = Direction::Down;
 
 	std::unordered_map<std::pair<AnimationState, Direction>, std::string, pair_hash> animation_paths_;
 
