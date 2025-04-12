@@ -1,0 +1,158 @@
+{
+  "states": [
+    {
+      "name": "Idle",
+      "animations": [
+        {
+          "name": "Idle_Up",
+          "sprite_path": "assets/player/player_idle_up.png",
+          "columns": 6,
+          "rows": 1,
+          "frame_width": 16,
+          "frame_height": 32,
+          "condition": {
+            "variable": "direction",
+            "value": {
+              "type": "int",
+              "data": 1
+            }
+          }
+        },
+        {
+          "name": "Idle_Down",
+          "sprite_path": "assets/player/player_idle_down.png",
+          "columns": 6,
+          "rows": 1,
+          "frame_width": 16,
+          "frame_height": 32,
+          "condition": {
+            "variable": "direction",
+            "value": {
+              "type": "int",
+              "data": 2
+            }
+          }
+        },
+        {
+          "name": "Idle_Left",
+          "sprite_path": "assets/player/player_idle_left.png",
+          "columns": 6,
+          "rows": 1,
+          "frame_width": 16,
+          "frame_height": 32,
+          "condition": {
+            "variable": "direction",
+            "value": {
+              "type": "int",
+              "data": 3
+            }
+          }
+        },
+        {
+          "name": "Idle_Right",
+          "sprite_path": "assets/player/player_idle_right.png",
+          "columns": 6,
+          "rows": 1,
+          "frame_width": 16,
+          "frame_height": 32,
+          "condition": {
+            "variable": "direction",
+            "value": {
+              "type": "int",
+              "data": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Walk",
+      "animations": [
+        {
+          "name": "Walk_Up",
+          "sprite_path": "assets/player/player_walk_up.png",
+          "columns": 4,
+          "rows": 1,
+          "frame_width": 16,
+          "frame_height": 32,
+          "condition": {
+            "variable": "direction",
+            "value": {
+              "type": "int",
+              "data": 1
+            }
+          }
+        },
+        {
+          "name": "Walk_Down",
+          "sprite_path": "assets/player/player_walk_down.png",
+          "columns": 4,
+          "rows": 1,
+          "frame_width": 16,
+          "frame_height": 32,
+          "condition": {
+            "variable": "direction",
+            "value": {
+              "type": "int",
+              "data": 2
+            }
+          }
+        },
+        {
+          "name": "Walk_Left",
+          "sprite_path": "assets/player/player_walk_left.png",
+          "columns": 4,
+          "rows": 1,
+          "frame_width": 16,
+          "frame_height": 32,
+          "condition": {
+            "variable": "direction",
+            "value": {
+              "type": "int",
+              "data": 3
+            }
+          }
+        },
+        {
+          "name": "Walk_Right",
+          "sprite_path": "assets/player/player_walk_right.png",
+          "columns": 4,
+          "rows": 1,
+          "frame_width": 16,
+          "frame_height": 32,
+          "condition": {
+            "variable": "direction",
+            "value": {
+              "type": "int",
+              "data": 4
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": "Idle",
+      "to": "Walk",
+      "condition": {
+        "variable": "isWalking",
+        "value": {
+          "type": "bool",
+          "data": true
+        }
+      }
+    },
+    {
+      "from": "Walk",
+      "to": "Idle",
+      "condition": {
+        "variable": "isWalking",
+        "value": {
+          "type": "bool",
+          "data": false
+        }
+      }
+    }
+  ]
+}

@@ -22,9 +22,9 @@
 WindowManager window;
 
 std::vector<std::shared_ptr<GameObject>> scene;
-
+std::shared_ptr<GameObject> player;
 void SetUpPlayer() {
-	auto player = std::make_shared<GameObject>("Player");
+	player = std::make_shared<GameObject>("Player");
 	
 	std::shared_ptr<PlayerController> player_controller = std::make_shared<PlayerController>();
 
@@ -64,9 +64,6 @@ void SetUpPlayer() {
 
 	//sprite_rendered_player->SetImage("./assets/player/player_down.png");
 
-	sprite_rendered_player->height_ = 64;
-	sprite_rendered_player->width_ = 32;
-
 	player->AddComponent(sprite_rendered_player);
 
 	// Set Player position
@@ -87,6 +84,8 @@ void SetUpPlayer() {
 	//animator->SetSpriteSheet("./assets/player/player_idle_down.png", window.GetRenderer());
 
     std::shared_ptr<AnimatorStateMachine> animator_state_machine = std::make_shared<AnimatorStateMachine>();  
+
+	animator_state_machine->LoadFromJson("./assets/config/player/animation_state.json");
 
     player->AddComponent(animator_state_machine);
 	scene.push_back(player);
@@ -135,6 +134,8 @@ int main() {
 	for (auto& object : scene) {
 		object->Start();
 	}
+
+	player->GetComponent<Animator>()->SetRender(window.GetRenderer());
 
 	bool running = true;
 	SDL_Event event;

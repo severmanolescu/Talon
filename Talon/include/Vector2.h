@@ -98,6 +98,12 @@ struct Vector2 {
 		return !(x == other.x && y == other.y);
 	}
 
+	Vector2& operator=(const Vector2& other) {
+		x = other.x;
+		y = other.y;
+		return *this;
+	}
+
 	template<typename T>
 	Vector2 operator*(T scalar) const {
 		return { x * static_cast<float>(scalar), y * static_cast<float>(scalar) };

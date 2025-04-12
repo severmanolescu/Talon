@@ -7,58 +7,47 @@
 
 void PlayerController::Awake() {
 	rigidbody_ = game_object_->GetComponent<Rigidbody>();
-	animator_ = game_object_->GetComponent<Animator>();
 
-	animator_->sprite_width_ = 16;
-	animator_->sprite_height_ = 32;
 
 	last_state_ = std::make_pair(animation_state_, direction_);
 
-	spritesheet_layout_[AnimationState::Idle] = { 6, 1 };
-	spritesheet_layout_[AnimationState::Walk] = { 4, 1 };
-
-	animation_paths_[{AnimationState::Idle, Direction::Up}] = idle_up_;
-	animation_paths_[{AnimationState::Idle, Direction::Down}] = idle_down_;
-	animation_paths_[{AnimationState::Idle, Direction::Left}] = idle_left_;
-	animation_paths_[{AnimationState::Idle, Direction::Right}] = idle_right_;
-
-	animation_paths_[{AnimationState::Walk, Direction::Up}] = walk_up_;
-	animation_paths_[{AnimationState::Walk, Direction::Down}] = walk_down_;
-	animation_paths_[{AnimationState::Walk, Direction::Left}] = walk_left_;
-	animation_paths_[{AnimationState::Walk, Direction::Right}] = walk_right_;
+	animator_state_machine_ = game_object_->GetComponent<AnimatorStateMachine>();
 }
 
 void PlayerController::Start(){
-	animator_->SetSpriteSheet(animation_paths_[last_state_], renderer_);
-
-	animator_->sprite_width_ = 16;
-	animator_->sprite_height_ = 32;
-
 	animation_state_ = AnimationState::Idle;
 	direction_ = Direction::Down;
+
+	animator_state_machine_->SetState("Idle");
+	animator_state_machine_->SetInt("direction", 1);
 }
 
-void PlayerController::SetAnimation() {
-	animator_->columns_ = spritesheet_layout_[animation_state_].first;
-	animator_->rows_ = spritesheet_layout_[animation_state_].second;
+void PlayerController::SetAnimatorVariables() {
+	if (animation_state_ == AnimationState::Idle) {
+		animator_state_machine_->SetBool("isWalking", false);
+	}
+	else {
+		animator_state_machine_->SetBool("isWalking", true);
+	}
 
-	auto key = std::make_pair(animation_state_, direction_);
-
-	if (last_state_ != key)
-	{
-		last_state_ = key;
-
-		if (animation_paths_.find(key) != animation_paths_.end()) {
-			animator_->SetSpriteSheet(animation_paths_[key], renderer_);
-		}
-		else {
-			animator_->SetSpriteSheet(idle_down_, renderer_);
-		}
+	switch(direction_) {
+		case Direction::Up:
+			animator_state_machine_->SetInt("direction", 1);
+			break;
+		case Direction::Down:
+			animator_state_machine_->SetInt("direction", 2);
+			break;
+		case Direction::Left:
+			animator_state_machine_->SetInt("direction", 3);
+			break;
+		case Direction::Right:
+			animator_state_machine_->SetInt("direction", 4);
+			break;
 	}
 }
 
 void PlayerController::Update() {
-	if (!rigidbody_ || !animator_ || !renderer_) {
+	if (!rigidbody_ || !renderer_) {
 		return;
 	}
 
@@ -96,7 +85,7 @@ void PlayerController::Update() {
 		animation_state_ = AnimationState::Walk;
 	}
 
-	SetAnimation();
+	SetAnimatorVariables();
 
 	if (movement.x != 0.0f || movement.y != 0.0f) {
 		movement.Normalize();
@@ -110,7 +99,6 @@ void PlayerController::Update() {
 	if (InputSystem::GetKey("Jump") && rigidbody_->use_gravity_) {
 		rigidbody_->AddForce(jump_power_);
 	}
-
 }
 
 void PlayerController::OnDestroy() {

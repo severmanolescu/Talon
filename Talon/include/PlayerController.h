@@ -53,16 +53,12 @@ public:
 
 private:
 	std::shared_ptr<Rigidbody> rigidbody_;
-	std::shared_ptr<Animator> animator_;
+	std::shared_ptr<AnimatorStateMachine> animator_state_machine_;
 
 	AnimationState animation_state_ = AnimationState::Idle;
 	Direction direction_ = Direction::Down;
 
-	std::unordered_map<std::pair<AnimationState, Direction>, std::string, pair_hash> animation_paths_;
-
-	std::unordered_map<AnimationState, std::pair<int, int>> spritesheet_layout_;
-
 	std::pair<AnimationState, Direction> last_state_;
 
-	void SetAnimation();
+	void SetAnimatorVariables();
 };

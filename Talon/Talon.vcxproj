@@ -130,6 +130,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\sever\source\repos\Talon\Talon\include;C:\Users\sever\source\repos\Talon\Talon\include\Utils;C:\Users\sever\source\repos\Talon\Talon\include\System;C:\Users\sever\source\repos\Talon\Talon\include\Core;C:\Users\sever\source\repos\Talon\Talon\include\Components;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -170,13 +172,21 @@
     <ClCompile Include="src\System\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\config\input.json" />
+    <None Include="assets\config\player\animation_state.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Image Include="assets\player\grass.png" />
     <Image Include="assets\player\grass_tiles.png" />
     <Image Include="assets\player\player_down.png" />
     <Image Include="assets\player\player_idle_down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\config\input.json" />
+    <Image Include="assets\player\player_idle_left.png" />
+    <Image Include="assets\player\player_idle_right.png" />
+    <Image Include="assets\player\player_idle_up.png" />
+    <Image Include="assets\player\player_walk_down.png" />
+    <Image Include="assets\player\player_walk_left.png" />
+    <Image Include="assets\player\player_walk_right.png" />
+    <Image Include="assets\player\player_walk_up.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
