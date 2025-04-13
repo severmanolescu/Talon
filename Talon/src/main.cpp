@@ -13,9 +13,9 @@
 #include "CollisionManager.h"
 #include "Animator.h"
 #include "AnimatorStateMachine.h"
-#include "InputSystem.h"
 #include "EditorUIManager.h"
 #include "Console.hpp"
+#include "MindEngine.h"
 
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
@@ -27,7 +27,6 @@
 
 WindowManager window;
 
-std::vector<std::shared_ptr<GameObject>> scene;
 std::shared_ptr<GameObject> player;
 
 void SetUpPlayer() {
@@ -88,7 +87,12 @@ void SetUpPlayer() {
 
 	player->AddComponent(animator);
 
-	scene.push_back(player);
+	player->AddChild(std::make_shared<GameObject>("Weapon"));
+	player->AddChild(std::make_shared<GameObject>("Backack"));
+	player->AddChild(std::make_shared<GameObject>("Bow"));
+	player->AddChild(std::make_shared<GameObject>("Food"));
+
+	MindEngine::AddGameObject(player);
 }
 
 void SetUpWall() {
@@ -115,7 +119,7 @@ void SetUpWall() {
 
 	wall->AddComponent(sprite_rendered_wall);
 
-	scene.push_back(wall);
+	MindEngine::AddGameObject(wall);
 }
 
 int main() {
@@ -134,16 +138,23 @@ int main() {
 
 	SetUpWall();
 
-	CollisionManager::SetScene(scene);
+	std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> scene = MindEngine::GetAllGameObjects();
+
+	CollisionManager::SetScene(*scene);
 
 	LOG_ERROR("Talon Engine started!");
 	LOG_INFO("Talon Engine started!");
 
-	for (auto& object : scene) {
+	if (scene == nullptr) {
+		LOG_ERROR("Scene is null");
+		return -1;
+	}
+
+	for (auto& object : *scene) {
 		object->Awake();
 	}
 
-	for (auto& object : scene) {
+	for (auto& object : *scene) {
 		object->Start();
 	}
 
@@ -167,7 +178,7 @@ int main() {
 
 		editor_ui_manager.RenderPanels();
 
-		for (auto& object : scene) {
+		for (auto& object : *scene) {
 			object->Update();
 
 			auto collider = object->GetComponent<BoxCollider>();
@@ -185,7 +196,7 @@ int main() {
 		SDL_Delay(16);
 	}
 
-	for (auto& object : scene) {
+	for (auto& object : *scene) {
 		object->OnDestroy();
 	}
 

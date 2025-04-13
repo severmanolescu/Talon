@@ -148,6 +148,7 @@
     <ClInclude Include="include\Components\SpriteRenderer.h" />
     <ClInclude Include="include\Core\GameObject.h" />
     <ClInclude Include="include\Core\MindCore.h" />
+    <ClInclude Include="include\Core\MindEngine.h" />
     <ClInclude Include="include\Core\Transform.h" />
     <ClInclude Include="include\EditorUI\ConsolePanel.h" />
     <ClInclude Include="include\EditorUI\EditorUIManager.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="src\Components\SpriteRenderer.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
     <ClCompile Include="src\Core\MindCore.cpp" />
+    <ClCompile Include="src\Core\MindEngine.cpp" />
     <ClCompile Include="src\EditorUI\ConsolePanel.cpp" />
     <ClCompile Include="src\EditorUI\EditorUIManager.cpp" />
     <ClCompile Include="src\EditorUI\HierarchyPanel.cpp" />

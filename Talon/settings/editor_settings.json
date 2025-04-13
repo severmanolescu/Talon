@@ -4,6 +4,6 @@
         "show_error": true,
         "show_info": true,
         "show_timestamps": true,
-        "show_warning": false
+        "show_warning": true
     }
 }

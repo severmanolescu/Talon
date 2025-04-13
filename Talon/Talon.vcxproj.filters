@@ -147,6 +147,9 @@
     <ClInclude Include="include\System\Console.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Core\MindEngine.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\BoxCollider.cpp">
@@ -217,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="src\System\Console.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\MindEngine.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

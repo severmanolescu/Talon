@@ -39,3 +39,14 @@ void GameObject::OnDestroy() {
 		component->OnDestroy();
 	}
 }
+
+void GameObject::AddChild(std::shared_ptr<GameObject> child){
+	childrens_.push_back(child);
+	child->parent_ = shared_from_this();
+}
+
+bool GameObject::HasParent(){
+	return !parent_.expired();
+
+	return false;
+}

@@ -24,7 +24,8 @@ public:
 	}
 
 	static void SetScene(const std::vector<std::shared_ptr<GameObject>>& scene) {
-		scene_ = scene;
+		if(&scene != nullptr)
+			scene_ = scene;
 	}
 
 	static inline std::vector<std::shared_ptr<GameObject>> GetScene() {
