@@ -14,6 +14,11 @@
 #include "Animator.h"
 #include "AnimatorStateMachine.h"
 #include "InputSystem.h"
+#include "EditorUIManager.h"
+
+#include "imgui.h"
+#include "imgui_impl_sdl2.h"
+#include "imgui_impl_sdlrenderer2.h"
 
 #include <vector>
 #include <memory>
@@ -23,6 +28,7 @@ WindowManager window;
 
 std::vector<std::shared_ptr<GameObject>> scene;
 std::shared_ptr<GameObject> player;
+
 void SetUpPlayer() {
 	player = std::make_shared<GameObject>("Player");
 	
@@ -59,6 +65,13 @@ void SetUpPlayer() {
 
 	player->AddComponent(rigidbody);
 
+	// Player AnimatorStateMachine
+	std::shared_ptr<AnimatorStateMachine> animator_state_machine = std::make_shared<AnimatorStateMachine>();
+
+	animator_state_machine->LoadFromJson("./assets/config/player/animation_state.json");
+
+	player->AddComponent(animator_state_machine);
+
 	// Player SpriteRendered
 	std::shared_ptr<SpriteRenderer> sprite_rendered_player = std::make_shared<SpriteRenderer>(window.GetRenderer());
 
@@ -72,39 +85,17 @@ void SetUpPlayer() {
 	// Set Animator
 	std::shared_ptr<Animator> animator = std::make_shared<Animator>();
 
-	animator->columns_ = 6;
-	animator->rows_ = 1;
-
-	//animator->frame_events_[2].push_back([]() {
-	//	std::cout << "Trigger!";
-	//	});
-
 	player->AddComponent(animator);
 
-	//animator->SetSpriteSheet("./assets/player/player_idle_down.png", window.GetRenderer());
-
-    std::shared_ptr<AnimatorStateMachine> animator_state_machine = std::make_shared<AnimatorStateMachine>();  
-
-	animator_state_machine->LoadFromJson("./assets/config/player/animation_state.json");
-
-    player->AddComponent(animator_state_machine);
 	scene.push_back(player);
 }
 
-int main() {
-	if (!window.Init("Talon Engine", 800, 600)) {
-		return -1;
-	}
-
-	InputSystem::LoadFromJson("./assets/config/input.json");
-
-	SetUpPlayer();
-
+void SetUpWall() {
 	auto wall = std::make_shared<GameObject>("Wall");
 
 	std::shared_ptr<Transform> wall_transform = wall->GetTransform();
 
-	wall_transform->position_ = {100.0f, 400.0f};
+	wall_transform->position_ = { 100.0f, 400.0f };
 	wall_transform->scale_ = { 32, 32 };
 
 	std::shared_ptr<BoxCollider> box_collider = std::make_shared<BoxCollider>();
@@ -124,6 +115,34 @@ int main() {
 	wall->AddComponent(sprite_rendered_wall);
 
 	scene.push_back(wall);
+}
+
+int main() {
+	if (!window.Init("Talon Engine", 800, 600)) {
+		return -1;
+	}
+
+	EditorUIManager editor_ui_manager;
+
+	// Init ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+	// Style
+	ImGui::StyleColorsDark(); // or Light, Classic
+
+	// Init SDL bindings
+	ImGui_ImplSDL2_InitForSDLRenderer(window.GetWindow(), window.GetRenderer());
+
+	ImGui_ImplSDLRenderer2_Init(window.GetRenderer());
+
+	InputSystem::LoadFromJson("./assets/config/input.json");
+
+	SetUpPlayer();
+
+	SetUpWall();
 
 	CollisionManager::SetScene(scene);
 
@@ -142,12 +161,42 @@ int main() {
 
 	while (running) {
 		while (SDL_PollEvent(&event)) {
+			ImGui_ImplSDL2_ProcessEvent(&event);
+
+
 			if (event.type == SDL_QUIT) running = false;
 		}
+
+		ImGui_ImplSDL2_NewFrame();
+		ImGui_ImplSDLRenderer2_NewFrame();
+		ImGui::NewFrame();
+
+		// Fullscreen DockSpace host window
+		ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+		const ImGuiViewport* viewport = ImGui::GetMainViewport();
+		ImGui::SetNextWindowPos(viewport->WorkPos);
+		ImGui::SetNextWindowSize(viewport->WorkSize);
+		ImGui::SetNextWindowViewport(viewport->ID);
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+		ImGui::Begin("DockSpace Root", nullptr, window_flags);
+		ImGui::PopStyleVar(3);
+
+		ImGuiID dockspace_id = ImGui::GetID("MyDockspace");
+		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
+		ImGui::End();
+
 
 		window.Clear();
 
 		InputSystem::Update();
+
+		editor_ui_manager.Render();
 
 		for (auto& object : scene) {
 			object->Update();
@@ -160,6 +209,16 @@ int main() {
 		}
 
 		InputSystem::LateUpdate();
+
+		ImGui::Render();
+		ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), window.GetRenderer());
+
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+			SDL_Window* backup_window = SDL_GL_GetCurrentWindow();
+			SDL_Renderer* backup_renderer = SDL_GetRenderer(backup_window);
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+		}
 
 		window.Present();
 		SDL_Delay(16);

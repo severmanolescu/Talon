@@ -8,14 +8,14 @@ bool WindowManager::Init(const char* title, int width, int height) {
 		return false;
 	}
 
-	window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
-	if (!window) {
+	window_ = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
+	if (!window_) {
 		std::cerr << "Window creation failed: " << SDL_GetError() << "\n";
 		return false;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	if (!renderer) {
+	renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
+	if (!renderer_) {
 		std::cerr << "Renderer creation failed: " << SDL_GetError() << "\n";
 		return false;
 	}
@@ -24,20 +24,25 @@ bool WindowManager::Init(const char* title, int width, int height) {
 }
 
 void WindowManager::Clear() {
-	SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255); // dark gray
-	SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(renderer_, 30, 30, 30, 255); // dark gray
+	SDL_RenderClear(renderer_);
 }
 
 void WindowManager::Present() {
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(renderer_);
 }
 
 void WindowManager::Shutdown() {
-	if (renderer) SDL_DestroyRenderer(renderer);
-	if (window) SDL_DestroyWindow(window);
+	if (renderer_) SDL_DestroyRenderer(renderer_);
+	if (window_) SDL_DestroyWindow(window_);
 	SDL_Quit();
 }
 
 SDL_Renderer* WindowManager::GetRenderer() const {
-	return renderer;
+	return renderer_;
+}
+
+SDL_Window* WindowManager::GetWindow() const
+{
+	return window_;
 }

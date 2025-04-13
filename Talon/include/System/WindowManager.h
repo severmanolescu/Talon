@@ -14,7 +14,9 @@ public:
 
 	SDL_Renderer* GetRenderer() const;
 
+	SDL_Window* GetWindow() const;
+
 private:
-	SDL_Window* window = nullptr;
-	SDL_Renderer* renderer = nullptr;
+	SDL_Window* window_ = nullptr;
+	SDL_Renderer* renderer_ = nullptr;
 };

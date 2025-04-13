@@ -18,8 +18,6 @@ void Animator::UpdateFrames(){
         frame_timer_ -= frame_duration_;
 
         if (frame_index_ < frame_clips_.size()) {
-            std::cout << "[Animator] Sprite sheet set: " << frame_index_ << " " << frame_clips_.size() << "\n";
-
             sprite_renderer_->SetSourceRect(frame_clips_[frame_index_]);
         }
 

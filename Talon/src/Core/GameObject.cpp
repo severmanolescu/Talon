@@ -1,5 +1,8 @@
 #include "GameObject.h"
 
+#include "AnimatorStateMachine.h"
+#include "Animator.h"
+
 void GameObject::AddComponent(const std::shared_ptr<MindCore> component) {
 	component->game_object_ = this;
 	components_.push_back(component);

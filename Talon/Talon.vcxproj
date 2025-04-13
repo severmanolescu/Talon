@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\sever\source\repos\Talon\Talon\include\Utils;C:\Users\sever\source\repos\Talon\Talon\include;C:\Users\sever\source\repos\Talon\Talon\include\System;C:\Users\sever\source\repos\Talon\Talon\include\Core;C:\Users\sever\source\repos\Talon\Talon\include\Components;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\sever\source\repos\Talon\Talon\include\EditorUI;C:\Users\sever\source\repos\Talon\Talon\include\Utils\ImGui\backend;C:\Users\sever\source\repos\Talon\Talon\include\Utils\ImGui;C:\Users\sever\source\repos\Talon\Talon\include\Utils;C:\Users\sever\source\repos\Talon\Talon\include;C:\Users\sever\source\repos\Talon\Talon\include\System;C:\Users\sever\source\repos\Talon\Talon\include\Core;C:\Users\sever\source\repos\Talon\Talon\include\Components;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -130,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\sever\source\repos\Talon\Talon\include;C:\Users\sever\source\repos\Talon\Talon\include\Utils;C:\Users\sever\source\repos\Talon\Talon\include\System;C:\Users\sever\source\repos\Talon\Talon\include\Core;C:\Users\sever\source\repos\Talon\Talon\include\Components;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\sever\source\repos\Talon\Talon\include\EditorUI;C:\Users\sever\source\repos\Talon\Talon\include\Utils\ImGui\backend;C:\Users\sever\source\repos\Talon\Talon\include\Utils\ImGui;C:\Users\sever\source\repos\Talon\Talon\include;C:\Users\sever\source\repos\Talon\Talon\include\Utils;C:\Users\sever\source\repos\Talon\Talon\include\System;C:\Users\sever\source\repos\Talon\Talon\include\Core;C:\Users\sever\source\repos\Talon\Talon\include\Components;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -149,22 +149,45 @@
     <ClInclude Include="include\Core\GameObject.h" />
     <ClInclude Include="include\Core\MindCore.h" />
     <ClInclude Include="include\Core\Transform.h" />
+    <ClInclude Include="include\EditorUI\ConsolePanel.h" />
+    <ClInclude Include="include\EditorUI\EditorUIManager.h" />
+    <ClInclude Include="include\EditorUI\HierarchyPanel.h" />
+    <ClInclude Include="include\EditorUI\InspectorPanel.h" />
     <ClInclude Include="include\PhysicsUtils.h" />
     <ClInclude Include="include\PlayerController.h" />
     <ClInclude Include="include\System\AnimatorStateMachine.h" />
     <ClInclude Include="include\System\CollisionManager.h" />
     <ClInclude Include="include\System\InputSystem.h" />
     <ClInclude Include="include\System\WindowManager.h" />
+    <ClInclude Include="include\Utils\ImGui\backend\imgui_impl_sdl2.h" />
+    <ClInclude Include="include\Utils\ImGui\backend\imgui_impl_sdlrenderer2.h" />
+    <ClInclude Include="include\Utils\ImGui\imconfig.h" />
+    <ClInclude Include="include\Utils\ImGui\imgui.h" />
+    <ClInclude Include="include\Utils\ImGui\imgui_internal.h" />
+    <ClInclude Include="include\Utils\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="include\Utils\ImGui\imstb_textedit.h" />
+    <ClInclude Include="include\Utils\ImGui\imstb_truetype.h" />
     <ClInclude Include="include\Utils\json.hpp" />
     <ClInclude Include="include\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\Utils\ImGui\backend\imgui_impl_sdl2.cpp" />
+    <ClCompile Include="include\Utils\ImGui\backend\imgui_impl_sdlrenderer2.cpp" />
+    <ClCompile Include="include\Utils\ImGui\imgui.cpp" />
+    <ClCompile Include="include\Utils\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="include\Utils\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="include\Utils\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="include\Utils\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="src\Components\Animator.cpp" />
     <ClCompile Include="src\Components\BoxCollider.cpp" />
     <ClCompile Include="src\Components\Rigidbody.cpp" />
     <ClCompile Include="src\Components\SpriteRenderer.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
     <ClCompile Include="src\Core\MindCore.cpp" />
+    <ClCompile Include="src\EditorUI\ConsolePanel.cpp" />
+    <ClCompile Include="src\EditorUI\EditorUIManager.cpp" />
+    <ClCompile Include="src\EditorUI\HierarchyPanel.cpp" />
+    <ClCompile Include="src\EditorUI\InspectorPanel.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PlayerController.cpp" />
     <ClCompile Include="src\System\AnimatorStateMachine.cpp" />
