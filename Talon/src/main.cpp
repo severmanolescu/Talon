@@ -15,6 +15,7 @@
 #include "AnimatorStateMachine.h"
 #include "InputSystem.h"
 #include "EditorUIManager.h"
+#include "Console.hpp"
 
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
@@ -124,19 +125,7 @@ int main() {
 
 	EditorUIManager editor_ui_manager;
 
-	// Init ImGui context
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-
-	// Style
-	ImGui::StyleColorsDark(); // or Light, Classic
-
-	// Init SDL bindings
-	ImGui_ImplSDL2_InitForSDLRenderer(window.GetWindow(), window.GetRenderer());
-
-	ImGui_ImplSDLRenderer2_Init(window.GetRenderer());
+	editor_ui_manager.InitImGui(window.GetWindow(), window.GetRenderer());
 
 	InputSystem::LoadFromJson("./assets/config/input.json");
 
@@ -145,6 +134,8 @@ int main() {
 	SetUpWall();
 
 	CollisionManager::SetScene(scene);
+
+	LOG_INFO("Talon Engine started!");
 
 	for (auto& object : scene) {
 		object->Awake();
@@ -163,40 +154,16 @@ int main() {
 		while (SDL_PollEvent(&event)) {
 			ImGui_ImplSDL2_ProcessEvent(&event);
 
-
 			if (event.type == SDL_QUIT) running = false;
 		}
 
-		ImGui_ImplSDL2_NewFrame();
-		ImGui_ImplSDLRenderer2_NewFrame();
-		ImGui::NewFrame();
-
-		// Fullscreen DockSpace host window
-		ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
-			ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-			ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
-
-		const ImGuiViewport* viewport = ImGui::GetMainViewport();
-		ImGui::SetNextWindowPos(viewport->WorkPos);
-		ImGui::SetNextWindowSize(viewport->WorkSize);
-		ImGui::SetNextWindowViewport(viewport->ID);
-
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-		ImGui::Begin("DockSpace Root", nullptr, window_flags);
-		ImGui::PopStyleVar(3);
-
-		ImGuiID dockspace_id = ImGui::GetID("MyDockspace");
-		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
-		ImGui::End();
-
+		editor_ui_manager.InitFrame();
 
 		window.Clear();
 
 		InputSystem::Update();
 
-		editor_ui_manager.Render();
+		editor_ui_manager.RenderPanels();
 
 		for (auto& object : scene) {
 			object->Update();
@@ -210,15 +177,7 @@ int main() {
 
 		InputSystem::LateUpdate();
 
-		ImGui::Render();
-		ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), window.GetRenderer());
-
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
-			SDL_Window* backup_window = SDL_GL_GetCurrentWindow();
-			SDL_Renderer* backup_renderer = SDL_GetRenderer(backup_window);
-			ImGui::UpdatePlatformWindows();
-			ImGui::RenderPlatformWindowsDefault();
-		}
+		editor_ui_manager.RenderImGui(window.GetRenderer());
 
 		window.Present();
 		SDL_Delay(16);

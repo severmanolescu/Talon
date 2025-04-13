@@ -157,6 +157,7 @@
     <ClInclude Include="include\PlayerController.h" />
     <ClInclude Include="include\System\AnimatorStateMachine.h" />
     <ClInclude Include="include\System\CollisionManager.h" />
+    <ClInclude Include="include\System\Console.hpp" />
     <ClInclude Include="include\System\InputSystem.h" />
     <ClInclude Include="include\System\WindowManager.h" />
     <ClInclude Include="include\Utils\ImGui\backend\imgui_impl_sdl2.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PlayerController.cpp" />
     <ClCompile Include="src\System\AnimatorStateMachine.cpp" />
+    <ClCompile Include="src\System\Console.cpp" />
     <ClCompile Include="src\System\InputSystem.cpp" />
     <ClCompile Include="src\System\WindowManager.cpp" />
   </ItemGroup>

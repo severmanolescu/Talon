@@ -4,10 +4,17 @@
 #include "ConsolePanel.h"
 #include "HierarchyPanel.h"
 
+#include "WindowManager.h"
+
 class EditorUIManager {
 public:
-	void Render();
+	void RenderPanels();
 
+	void RenderImGui(SDL_Renderer* render);
+
+	void InitFrame();
+
+	void InitImGui(SDL_Window* window, SDL_Renderer* renderer);
 private:
 	HierarchyPanel hierarchy_panel_;
 	ConsolePanel console_panel_;

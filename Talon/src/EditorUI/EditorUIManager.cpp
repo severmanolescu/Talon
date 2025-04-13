@@ -1,14 +1,65 @@
 #include "EditorUIManager.h"
 
 #include <imgui.h>
+#include "imgui_impl_sdl2.h"
+#include "imgui_impl_sdlrenderer2.h"
 
-void EditorUIManager::Render() {
+void EditorUIManager::InitImGui(SDL_Window* window, SDL_Renderer* renderer) {
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+    ImGui::StyleColorsDark();
+
+    ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
+    ImGui_ImplSDLRenderer2_Init(renderer);
+}
+
+
+
+void EditorUIManager::RenderPanels() {
+	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
+		ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+	const ImGuiViewport* viewport = ImGui::GetMainViewport();
+	ImGui::SetNextWindowPos(viewport->WorkPos);
+	ImGui::SetNextWindowSize(viewport->WorkSize);
+	ImGui::SetNextWindowViewport(viewport->ID);
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+	ImGui::Begin("DockSpace Root", nullptr, window_flags);
+	ImGui::PopStyleVar(3);
+
+	ImGuiID dockspace_id = ImGui::GetID("TalonEngineDock");
+	ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
+	ImGui::End();
 
     ImGui::DockSpaceOverViewport(ImGui::GetID("TalonDockspace"), ImGui::GetMainViewport(), ImGuiDockNodeFlags_None);
 
-    ImGui::ShowDemoWindow();
-
-    //hierarchy_panel_.Render();
+    hierarchy_panel_.Render();
     inspector_panel_.Render();
-    //console_panel_.Render();
+    console_panel_.Render();
+}
+
+void EditorUIManager::InitFrame(){
+	ImGui_ImplSDL2_NewFrame();
+	ImGui_ImplSDLRenderer2_NewFrame();
+	ImGui::NewFrame();
+}
+
+void EditorUIManager::RenderImGui(SDL_Renderer* render){
+	ImGui::Render();
+	ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), render);
+
+	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+		SDL_Window* backup_window = SDL_GL_GetCurrentWindow();
+		SDL_Renderer* backup_renderer = SDL_GetRenderer(backup_window);
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+	}
 }

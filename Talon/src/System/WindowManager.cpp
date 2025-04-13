@@ -4,19 +4,20 @@
 
 bool WindowManager::Init(const char* title, int width, int height) {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		std::cerr << "SDL_Init failed: " << SDL_GetError() << "\n";
+		std::cerr << "[WindowManager] SDL_Init failed: " << SDL_GetError() << "\n";
 		return false;
 	}
 
-	window_ = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
+	Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
+	window_ = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
 	if (!window_) {
-		std::cerr << "Window creation failed: " << SDL_GetError() << "\n";
+		std::cerr << "[WindowManager] Window creation failed: " << SDL_GetError() << "\n";
 		return false;
 	}
 
 	renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
 	if (!renderer_) {
-		std::cerr << "Renderer creation failed: " << SDL_GetError() << "\n";
+		std::cerr << "[WindowManager] Renderer creation failed: " << SDL_GetError() << "\n";
 		return false;
 	}
 
