@@ -128,6 +128,7 @@ int main() {
 	editor_ui_manager.InitImGui(window.GetWindow(), window.GetRenderer());
 
 	InputSystem::LoadFromJson("./assets/config/input.json");
+	editor_ui_manager.LoadSettings("./settings/editor_settings.json");
 
 	SetUpPlayer();
 
@@ -135,6 +136,7 @@ int main() {
 
 	CollisionManager::SetScene(scene);
 
+	LOG_ERROR("Talon Engine started!");
 	LOG_INFO("Talon Engine started!");
 
 	for (auto& object : scene) {
@@ -188,6 +190,8 @@ int main() {
 	}
 
 	window.Shutdown();
+
+	editor_ui_manager.SaveSettings("./settings/editor_settings.json");
 
 	return 0;
 }

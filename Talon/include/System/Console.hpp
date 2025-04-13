@@ -22,6 +22,8 @@ struct ConsoleMessage {
 
 	std::string file;
 	int line;
+
+	std::string timestamp;
 };
 
 class Console {
@@ -35,5 +37,11 @@ public:
 
 	static void Clear();
 private:
+	const static int max_messages_ = 2000;
+
 	static std::vector<ConsoleMessage> messages_;
+
+	static std::string GetCurrentTimestamp();
+
+	static void LimitMessages();
 };

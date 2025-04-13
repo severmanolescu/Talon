@@ -4,6 +4,9 @@
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_sdlrenderer2.h"
 
+#include <fstream>
+#include "json.hpp"
+
 void EditorUIManager::InitImGui(SDL_Window* window, SDL_Renderer* renderer) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -16,7 +19,25 @@ void EditorUIManager::InitImGui(SDL_Window* window, SDL_Renderer* renderer) {
     ImGui_ImplSDLRenderer2_Init(renderer);
 }
 
+void EditorUIManager::SaveSettings(const std::string& file_path){
+	nlohmann::json data;
 
+	console_panel_.SaveSettings(data);
+
+	std::ofstream file(file_path);
+	if (file.is_open())
+		file << data.dump(4);
+}
+
+void EditorUIManager::LoadSettings(const std::string& file_path){
+	std::ifstream file(file_path);
+	if (!file.is_open()) return;
+
+	nlohmann::json data;
+	file >> data;
+
+	console_panel_.LoadSettings(data);
+}
 
 void EditorUIManager::RenderPanels() {
 	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |

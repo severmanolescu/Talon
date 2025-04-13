@@ -58,6 +58,9 @@
     <Filter Include="Header Files\EditorUI">
       <UniqueIdentifier>{a72a8e99-c966-4fb9-aeb6-91e15ed46544}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{b8ae6444-a00a-4632-80c0-e0938e196e14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\BoxCollider.h">
@@ -141,6 +144,9 @@
     <ClInclude Include="include\EditorUI\InspectorPanel.h">
       <Filter>Header Files\EditorUI</Filter>
     </ClInclude>
+    <ClInclude Include="include\System\Console.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\BoxCollider.cpp">
@@ -209,6 +215,9 @@
     <ClCompile Include="include\Utils\ImGui\imgui_demo.cpp">
       <Filter>Header Files\Utils\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\System\Console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\config\input.json">
@@ -216,6 +225,9 @@
     </None>
     <None Include="assets\config\player\animation_state.json">
       <Filter>Resource Files\Config\Player</Filter>
+    </None>
+    <None Include="settings\editor_settings.json">
+      <Filter>Settings</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

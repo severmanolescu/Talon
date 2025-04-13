@@ -15,6 +15,11 @@ public:
 	void InitFrame();
 
 	void InitImGui(SDL_Window* window, SDL_Renderer* renderer);
+
+	void SaveSettings(const std::string& file_path);
+
+	void LoadSettings(const std::string& file_path);
+
 private:
 	HierarchyPanel hierarchy_panel_;
 	ConsolePanel console_panel_;
