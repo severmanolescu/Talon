@@ -15,4 +15,15 @@ public:
 	void Update() override {
 		last_position_ = position_;
 	}
+
+	void DrawUI() override {
+		ImGui::BeginChild("TransformChild", ImVec2(0, ImGui::GetFrameHeightWithSpacing() * 5.5f), true);
+		
+		ImGui::SeparatorText("Transform");
+
+		DrawVector2Control("Position", position_);
+		DrawVector2Control("Scale", scale_);
+		
+		ImGui::EndChild();
+	}
 };

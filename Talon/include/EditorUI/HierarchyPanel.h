@@ -11,6 +11,8 @@ class HierarchyPanel {
 public:
 	void Render();
 
+	std::shared_ptr<GameObject> GetSelectedObject() const;
+
 private:
 	std::shared_ptr<GameObject> renaming_target_ = nullptr;
 

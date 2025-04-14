@@ -16,7 +16,11 @@ public:
 
 	SDL_Window* GetWindow() const;
 
+	SDL_Texture* GetSceneTexture() const;
+
 private:
 	SDL_Window* window_ = nullptr;
 	SDL_Renderer* renderer_ = nullptr;
+
+	SDL_Texture* scene_texture_ = nullptr;
 };

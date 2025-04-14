@@ -13,7 +13,6 @@ class SpriteRenderer : public MindCore {
 public:
 	int width_ = 32;
 	int height_ = 64;
-	Uint8 color_r_ = 255, color_g_ = 255, color_b_ = 0;
 
 	SpriteRenderer(SDL_Renderer* renderer) : renderer_(renderer) {}
 
@@ -28,6 +27,8 @@ public:
 	void Awake() override;
 
 	void Update() override;
+
+	void DrawUI() override;
 private:
 	std::shared_ptr<Transform> transform_;
 

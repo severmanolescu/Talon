@@ -63,7 +63,7 @@ void EditorUIManager::RenderPanels() {
     ImGui::DockSpaceOverViewport(ImGui::GetID("TalonDockspace"), ImGui::GetMainViewport(), ImGuiDockNodeFlags_None);
 
     hierarchy_panel_.Render();
-    inspector_panel_.Render();
+	inspector_panel_.Render(hierarchy_panel_.GetSelectedObject());
     console_panel_.Render();
 }
 

@@ -171,6 +171,7 @@
     <ClInclude Include="include\Utils\ImGui\imstb_truetype.h" />
     <ClInclude Include="include\Utils\json.hpp" />
     <ClInclude Include="include\Vector2.h" />
+    <ClInclude Include="ScenePanel.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\Utils\ImGui\backend\imgui_impl_sdl2.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="include\Utils\ImGui\imgui_draw.cpp" />
     <ClCompile Include="include\Utils\ImGui\imgui_tables.cpp" />
     <ClCompile Include="include\Utils\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="ScenePanel.cpp" />
     <ClCompile Include="src\Components\Animator.cpp" />
     <ClCompile Include="src\Components\BoxCollider.cpp" />
     <ClCompile Include="src\Components\Rigidbody.cpp" />

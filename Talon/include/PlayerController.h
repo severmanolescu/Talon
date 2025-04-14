@@ -50,6 +50,7 @@ public:
 	void Start() override;
 	void Update() override;
 	void OnDestroy() override;
+	void DrawUI() override;
 
 private:
 	std::shared_ptr<Rigidbody> rigidbody_;

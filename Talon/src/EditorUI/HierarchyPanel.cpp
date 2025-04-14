@@ -376,3 +376,9 @@ void HierarchyPanel::Render() {
 
     ImGui::End();
 }
+
+std::shared_ptr<GameObject> HierarchyPanel::GetSelectedObject() const
+{
+    return last_clicked_object_;
+
+}

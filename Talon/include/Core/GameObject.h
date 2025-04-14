@@ -1,6 +1,5 @@
 #pragma once
 
-#include "MindCore.h"
 #include "Transform.h"
 
 #include "string"
@@ -106,6 +105,19 @@ public:
 
 		return nullptr;
 	}
+
+	bool IsActive() {
+		return active_;
+	}
+
+	void SetActive(bool active) {
+		active_ = active;
+	}
+
+	void RemoveComponent(const std::shared_ptr<MindCore> component);
 private:
 	std::vector<std::shared_ptr<MindCore>> components_;
+	std::vector<std::shared_ptr<MindCore>> to_remove_components_;
+
+	bool active_ = true;
 };

@@ -16,11 +16,11 @@ class AnimatorStateMachine;
 
 class Animator : public MindCore {
 public:
-	short frame_width_ = 16;
-	short frame_height_ = 16;
+	int frame_width_ = 16;
+	int frame_height_ = 16;
 
-	short columns_ = 0;
-	short rows_ = 0;
+	int spritesheet_columns_ = 0;
+	int spritesheet_rows = 0;
 
 	void Awake() override;
 	void Update() override;
@@ -34,6 +34,8 @@ public:
 	SDL_Renderer* GetRender() {
 		return renderer_;
 	}
+
+	void DrawUI() override;
 private:
 	std::shared_ptr<AnimatorStateMachine> animator_state_machine_;
 

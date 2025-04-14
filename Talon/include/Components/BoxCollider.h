@@ -14,13 +14,15 @@ public:
 
 	Vector2 offset_ = { .0f, .0f };
 
+	bool draw_debug_ = false;
+
 	SDL_Rect GetBounds() const;
 
 	void Awake() override;
 
 	void DrawDebug(SDL_Renderer* renderer);
 
-	bool draw_debug_ = false;
+	void DrawUI() override;
 
 private:
 	std::shared_ptr<Transform> transform_;

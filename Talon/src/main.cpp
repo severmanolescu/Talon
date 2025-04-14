@@ -166,35 +166,43 @@ int main() {
 	while (running) {
 		while (SDL_PollEvent(&event)) {
 			ImGui_ImplSDL2_ProcessEvent(&event);
-
 			if (event.type == SDL_QUIT) running = false;
 		}
 
 		editor_ui_manager.InitFrame();
 
-		window.Clear();
-
-		InputSystem::Update();
-
-		editor_ui_manager.RenderPanels();
+		SDL_SetRenderTarget(window.GetRenderer(), window.GetSceneTexture());
+		SDL_SetRenderDrawColor(window.GetRenderer(), 0, 0, 0, 255);
+		SDL_RenderClear(window.GetRenderer());
 
 		for (auto& object : *scene) {
 			object->Update();
 
-			auto collider = object->GetComponent<BoxCollider>();
-
-			if (collider) {
+			if (auto collider = object->GetComponent<BoxCollider>()) {
 				collider->DrawDebug(window.GetRenderer());
 			}
 		}
 
+		SDL_SetRenderTarget(window.GetRenderer(), nullptr);
+
+		window.Clear();
+
+		// --- RENDER IMGUI ---
+		InputSystem::Update();
+
+		editor_ui_manager.RenderPanels();
+
+		ImGui::Begin("Scene");
+		ImGui::Image((ImTextureID)window.GetSceneTexture(), ImVec2(800, 600));
+		ImGui::End();
+
 		InputSystem::LateUpdate();
-
 		editor_ui_manager.RenderImGui(window.GetRenderer());
-
 		window.Present();
+
 		SDL_Delay(16);
 	}
+
 
 	for (auto& object : *scene) {
 		object->OnDestroy();

@@ -21,11 +21,20 @@ bool WindowManager::Init(const char* title, int width, int height) {
 		return false;
 	}
 
+	scene_texture_ = SDL_CreateTexture(
+		renderer_,
+		SDL_PIXELFORMAT_RGBA8888,
+		SDL_TEXTUREACCESS_TARGET,
+		800,
+		600
+	);
+
+
 	return true;
 }
 
 void WindowManager::Clear() {
-	SDL_SetRenderDrawColor(renderer_, 30, 30, 30, 255); // dark gray
+	SDL_SetRenderDrawColor(renderer_, 30, 30, 30, 255);
 	SDL_RenderClear(renderer_);
 }
 
@@ -36,6 +45,12 @@ void WindowManager::Present() {
 void WindowManager::Shutdown() {
 	if (renderer_) SDL_DestroyRenderer(renderer_);
 	if (window_) SDL_DestroyWindow(window_);
+
+	if (scene_texture_) {
+		SDL_DestroyTexture(scene_texture_);
+		scene_texture_ = nullptr;
+	}
+
 	SDL_Quit();
 }
 
@@ -46,4 +61,8 @@ SDL_Renderer* WindowManager::GetRenderer() const {
 SDL_Window* WindowManager::GetWindow() const
 {
 	return window_;
+}
+
+SDL_Texture* WindowManager::GetSceneTexture() const{
+	return scene_texture_;
 }

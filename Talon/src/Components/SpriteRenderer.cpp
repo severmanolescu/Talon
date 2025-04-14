@@ -40,6 +40,8 @@ void SpriteRenderer::ClearSourceRect() {
 }
 
 void SpriteRenderer::Awake(){
+    ui_frame_height_ = 4;
+
 	transform_ = game_object_->GetTransform();
 }
 
@@ -62,4 +64,18 @@ void SpriteRenderer::Update() {
     else {
         SDL_RenderCopy(renderer_, texture_, nullptr, &dest);
     }
+}
+
+void SpriteRenderer::DrawUI(){
+    BeginDraw("SpriteRenderer");
+
+    DrawInt2Control(
+        "Dimension",
+        "Width",
+        &width_,
+        "Heihgt",
+        &height_
+    );
+
+    EndDraw();
 }

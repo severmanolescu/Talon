@@ -17,20 +17,35 @@ std::shared_ptr<Transform> GameObject::GetTransform() {
 }
 
 void GameObject::Awake() {
+	if (!active_) return;
+
+	to_remove_components_.clear();
+
 	for (auto& component : components_) {
 		component->Awake();
 	}
 }
 
 void GameObject::Start() {
+	if (!active_) return;
+
 	for (auto& component : components_) {
 		component->Start();
 	}
 }
 
 void GameObject::Update() {
+	if (!active_) return;
+
 	for (auto& component : components_) {
 		component->Update();
+	}
+
+	for (auto& component : to_remove_components_) {
+		auto it = std::remove(components_.begin(), components_.end(), component);
+		if (it != components_.end()) {
+			components_.erase(it, components_.end());
+		}
 	}
 }
 
@@ -49,4 +64,8 @@ bool GameObject::HasParent(){
 	return !parent_.expired();
 
 	return false;
+}
+
+void GameObject::RemoveComponent(const std::shared_ptr<MindCore> component){
+	to_remove_components_.push_back(component);
 }

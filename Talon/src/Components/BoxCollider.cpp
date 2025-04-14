@@ -20,6 +20,26 @@ void BoxCollider::DrawDebug(SDL_Renderer* renderer) {
 	SDL_RenderDrawRect(renderer, &rect);
 }
 
+void BoxCollider::DrawUI(){
+	BeginDraw("BoxCollider");
+
+    DrawInt2Control(
+        "Dimension",
+        "Width",
+        &width_,
+        "Heihgt",
+        &height_
+    );
+
+	DrawVector2Control("Offset", offset_);
+
+	DrawCheckbox("Draw Debug", &draw_debug_);
+
+	EndDraw();
+}
+
 void BoxCollider::Awake(){
+	ui_frame_height_ = 6.6f;
+
 	transform_ = game_object_->GetTransform();
 }

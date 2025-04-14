@@ -45,6 +45,8 @@ public:
 
 	void Update() override;
 
+	void DrawUI() override;
+
 private:
 	std::shared_ptr<Transform> transform_;
 };

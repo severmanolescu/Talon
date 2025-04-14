@@ -1,40 +1,47 @@
 #include "InspectorPanel.h"
-#include "imgui.h"
 #include "GameObject.h"
 #include "Transform.h"
-#include "Rigidbody.h" // or Rigidbody2D, etc.
+#include "Rigidbody.h"
 
-void InspectorPanel::SetSelectedObject(std::shared_ptr<GameObject> object) {
-	selected_ = object;
-}
+#include "MindEngine.h"
 
-void InspectorPanel::Render() {
+#include "imgui.h"
+
+void InspectorPanel::Render(std::shared_ptr<GameObject> selected_object){
 	ImGui::Begin("Inspector");
 
-	if (!selected_) {
+	if (!selected_object) {
 		ImGui::Text("No object selected.");
 		ImGui::End();
 		return;
 	}
 
-	ImGui::Text("Name: %s", selected_->name_.c_str());
+	set_active_ = selected_object->IsActive();
 
-	// --- Transform Component ---
-	auto transform = selected_->GetComponent<Transform>();
-	if (transform) {
-		ImGui::SeparatorText("Transform");
-		ImGui::InputFloat2("Position", &transform->position_.x);
-		ImGui::InputFloat2("Scale", &transform->scale_.x);
+    ImGui::SameLine();
+    ImGui::Checkbox(" ", &set_active_);
+
+    ImGui::SameLine();
+
+    if (selected_object != last_selected_object_) {
+        strncpy_s(rename_buffer_, IM_ARRAYSIZE(rename_buffer_), selected_object->name_.c_str(), _TRUNCATE);
+        rename_buffer_[IM_ARRAYSIZE(rename_buffer_) - 1] = '\0';
+        last_selected_object_ = selected_object;
+    }
+
+    if (ImGui::InputTextWithHint("##ObjectName", "Object name...", rename_buffer_, IM_ARRAYSIZE(rename_buffer_), ImGuiInputTextFlags_EnterReturnsTrue)) {
+        selected_object->name_ = rename_buffer_;
+
+		rename_buffer_[0] = '\0'; // Clear the buffer after renaming
+    }
+
+	std::vector<std::shared_ptr<MindCore>> components = selected_object->GetAllComponents();
+
+	for (auto& component : components) {
+		component->DrawUI();
 	}
 
-	// --- Rigidbody Component ---
-	auto rb = selected_->GetComponent<Rigidbody>();
-	if (rb) {
-		ImGui::SeparatorText("Rigidbody");
-		ImGui::InputFloat2("Velocity", &rb->velocity_.x);
-		ImGui::Checkbox("Use Gravity", &rb->use_gravity_);
-		ImGui::InputFloat("Mass", &rb->mass_);
-	}
+	selected_object->SetActive(set_active_);
 
 	ImGui::End();
 }
