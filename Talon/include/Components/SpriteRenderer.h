@@ -11,10 +11,14 @@
 
 class SpriteRenderer : public MindCore {
 public:
-	int width_ = 32;
-	int height_ = 64;
+	int width_ = 16;
+	int height_ = 16;
 
-	SpriteRenderer(SDL_Renderer* renderer) : renderer_(renderer) {}
+	Vector2 pivot_ = { 0.5f, 0.5f };
+
+	SpriteRenderer(SDL_Renderer* renderer) : renderer_(renderer) {
+		priority = 15;
+	}
 
 	void SetImage(const std::string& path);
 

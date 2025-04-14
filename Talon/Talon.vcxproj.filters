@@ -150,7 +150,10 @@
     <ClInclude Include="include\Core\MindEngine.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="ScenePanel.hpp">
+    <ClInclude Include="include\EditorUI\GamePanel.hpp">
+      <Filter>Header Files\EditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EditorUI\ScenePanel.hpp">
       <Filter>Header Files\EditorUI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -227,8 +230,14 @@
     <ClCompile Include="src\Core\MindEngine.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="ScenePanel.cpp">
+    <ClCompile Include="src\EditorUI\GamePanel.cpp">
       <Filter>Source Files\EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EditorUI\ScenePanel.cpp">
+      <Filter>Source Files\EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -274,6 +283,9 @@
       <Filter>Resource Files\Assets\Player</Filter>
     </Image>
     <Image Include="assets\player\grass.png">
+      <Filter>Resource Files\Assets\Player</Filter>
+    </Image>
+    <Image Include="assets\player\weapon.png">
       <Filter>Resource Files\Assets\Player</Filter>
     </Image>
   </ItemGroup>

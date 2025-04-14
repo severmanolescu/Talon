@@ -31,6 +31,8 @@ public:
 	virtual void BeginDraw(std::string component_name);
 	virtual void EndDraw();
 
+	virtual void DrawGizmo();
+
 	virtual void DrawVector2Control(
 		const std::string& label,
 		Vector2& values,
@@ -52,4 +54,17 @@ public:
 	void DrawIntControl(const std::string& label, int* value);
 	void DrawFloatControl(const std::string& label, float* value);
 
+	int GetExecutionPriority() const {
+		return priority;
+	}
+
+private:
+	int priority = 100;
+
+	friend class Transform;
+	friend class BoxCollider;
+	friend class Rigidbody;
+	friend class SpriteRenderer;
+	friend class Animator;
+	friend class AnimatorStateMachine;
 };

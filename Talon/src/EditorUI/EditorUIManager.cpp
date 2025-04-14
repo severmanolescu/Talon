@@ -1,4 +1,5 @@
 #include "EditorUIManager.h"
+#include "WindowManager.h"
 
 #include <imgui.h>
 #include "imgui_impl_sdl2.h"
@@ -7,7 +8,7 @@
 #include <fstream>
 #include "json.hpp"
 
-void EditorUIManager::InitImGui(SDL_Window* window, SDL_Renderer* renderer) {
+void EditorUIManager::InitImGui() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -15,8 +16,8 @@ void EditorUIManager::InitImGui(SDL_Window* window, SDL_Renderer* renderer) {
 
     ImGui::StyleColorsDark();
 
-    ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
-    ImGui_ImplSDLRenderer2_Init(renderer);
+    ImGui_ImplSDL2_InitForSDLRenderer(WindowManager::GetWindow(), WindowManager::GetRenderer());
+    ImGui_ImplSDLRenderer2_Init(WindowManager::GetRenderer());
 }
 
 void EditorUIManager::SaveSettings(const std::string& file_path){
@@ -65,6 +66,7 @@ void EditorUIManager::RenderPanels() {
     hierarchy_panel_.Render();
 	inspector_panel_.Render(hierarchy_panel_.GetSelectedObject());
     console_panel_.Render();
+    scene_panel_.Render();
 }
 
 void EditorUIManager::InitFrame(){
@@ -73,9 +75,9 @@ void EditorUIManager::InitFrame(){
 	ImGui::NewFrame();
 }
 
-void EditorUIManager::RenderImGui(SDL_Renderer* render){
+void EditorUIManager::RenderImGui(){
 	ImGui::Render();
-	ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), render);
+	ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), WindowManager::GetRenderer());
 
 	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
 		SDL_Window* backup_window = SDL_GL_GetCurrentWindow();

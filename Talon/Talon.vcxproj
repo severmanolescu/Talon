@@ -152,8 +152,10 @@
     <ClInclude Include="include\Core\Transform.h" />
     <ClInclude Include="include\EditorUI\ConsolePanel.h" />
     <ClInclude Include="include\EditorUI\EditorUIManager.h" />
+    <ClInclude Include="include\EditorUI\GamePanel.hpp" />
     <ClInclude Include="include\EditorUI\HierarchyPanel.h" />
     <ClInclude Include="include\EditorUI\InspectorPanel.h" />
+    <ClInclude Include="include\EditorUI\ScenePanel.hpp" />
     <ClInclude Include="include\PhysicsUtils.h" />
     <ClInclude Include="include\PlayerController.h" />
     <ClInclude Include="include\System\AnimatorStateMachine.h" />
@@ -171,7 +173,6 @@
     <ClInclude Include="include\Utils\ImGui\imstb_truetype.h" />
     <ClInclude Include="include\Utils\json.hpp" />
     <ClInclude Include="include\Vector2.h" />
-    <ClInclude Include="ScenePanel.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\Utils\ImGui\backend\imgui_impl_sdl2.cpp" />
@@ -181,7 +182,6 @@
     <ClCompile Include="include\Utils\ImGui\imgui_draw.cpp" />
     <ClCompile Include="include\Utils\ImGui\imgui_tables.cpp" />
     <ClCompile Include="include\Utils\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="ScenePanel.cpp" />
     <ClCompile Include="src\Components\Animator.cpp" />
     <ClCompile Include="src\Components\BoxCollider.cpp" />
     <ClCompile Include="src\Components\Rigidbody.cpp" />
@@ -191,14 +191,17 @@
     <ClCompile Include="src\Core\MindEngine.cpp" />
     <ClCompile Include="src\EditorUI\ConsolePanel.cpp" />
     <ClCompile Include="src\EditorUI\EditorUIManager.cpp" />
+    <ClCompile Include="src\EditorUI\GamePanel.cpp" />
     <ClCompile Include="src\EditorUI\HierarchyPanel.cpp" />
     <ClCompile Include="src\EditorUI\InspectorPanel.cpp" />
+    <ClCompile Include="src\EditorUI\ScenePanel.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PlayerController.cpp" />
     <ClCompile Include="src\System\AnimatorStateMachine.cpp" />
     <ClCompile Include="src\System\Console.cpp" />
     <ClCompile Include="src\System\InputSystem.cpp" />
     <ClCompile Include="src\System\WindowManager.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\config\input.json" />
@@ -217,6 +220,7 @@
     <Image Include="assets\player\player_walk_left.png" />
     <Image Include="assets\player\player_walk_right.png" />
     <Image Include="assets\player\player_walk_up.png" />
+    <Image Include="assets\player\weapon.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

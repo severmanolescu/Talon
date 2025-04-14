@@ -37,6 +37,8 @@ public:
 
 	bool HasParent();
 
+	void DrawGizmo();
+
 	template<typename T>
 	std::shared_ptr<T> GetComponent() {
 		for (auto& component : components_) {

@@ -14,6 +14,10 @@ T clamp(T value, T min, T max) {
 
 class Rigidbody : public MindCore {
 public:
+	Rigidbody() {
+		priority = 10;
+	}
+
 	Vector2 velocity_ = { .0f, .0f };
 	Vector2 acceleration_ = { .0f, .0f };
 

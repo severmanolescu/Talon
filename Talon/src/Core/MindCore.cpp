@@ -7,7 +7,7 @@ void MindCore::Awake() {}
 void MindCore::Start() {}
 void MindCore::Update() {}
 void MindCore::OnDestroy() {}
-
+void MindCore::DrawGizmo() {}
 void MindCore::DrawUI(){}
 
 void MindCore::BeginDraw(std::string component_name){

@@ -3,6 +3,7 @@
 #include "InspectorPanel.h"
 #include "ConsolePanel.h"
 #include "HierarchyPanel.h"
+#include "ScenePanel.hpp"
 
 #include "WindowManager.h"
 
@@ -10,11 +11,11 @@ class EditorUIManager {
 public:
 	void RenderPanels();
 
-	void RenderImGui(SDL_Renderer* render);
+	void RenderImGui();
 
 	void InitFrame();
 
-	void InitImGui(SDL_Window* window, SDL_Renderer* renderer);
+	void InitImGui();
 
 	void SaveSettings(const std::string& file_path);
 
@@ -24,4 +25,5 @@ private:
 	HierarchyPanel hierarchy_panel_;
 	ConsolePanel console_panel_;
 	InspectorPanel inspector_panel_;
+	ScenePanel scene_panel_;
 };

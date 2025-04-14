@@ -9,6 +9,10 @@
 
 class BoxCollider : public MindCore {
 public:
+	BoxCollider() {
+		priority = 5;
+	}
+
 	int width_ = 50;
 	int height_ = 50;
 
@@ -20,7 +24,7 @@ public:
 
 	void Awake() override;
 
-	void DrawDebug(SDL_Renderer* renderer);
+	void DrawGizmo() override;
 
 	void DrawUI() override;
 

@@ -16,6 +16,10 @@ class AnimatorStateMachine;
 
 class Animator : public MindCore {
 public:
+	Animator() {
+		priority = 14;
+	}
+
 	int frame_width_ = 16;
 	int frame_height_ = 16;
 
