@@ -4,8 +4,6 @@
 
 class MindEngine {
 public:
-	static inline bool running = false;
-
 	static std::shared_ptr<GameObject> FindGameObject(const std::string& name);
 
 	static std::shared_ptr<GameObject> FindInChildren(const std::shared_ptr<GameObject>& obj, const std::string& name);
@@ -14,10 +12,9 @@ public:
 
 	static void AddGameObject(const std::shared_ptr<GameObject>& game_object);
 
-	static std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> GetAllGameObjects() {
-		return game_objects_;
-	}
+	static std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> GetAllGameObjects();
 
 private:
 	static std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> game_objects_;
+
 };

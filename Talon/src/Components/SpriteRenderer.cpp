@@ -45,22 +45,22 @@ void SpriteRenderer::Awake(){
 	transform_ = game_object_->GetTransform();
 }
 
-void SpriteRenderer::Update() {
-	if (!transform_ || !renderer_) {
-		return;
-	}
+void SpriteRenderer::Render(){
+    if (!transform_ || !renderer_) {
+     return;
+    }
 
-	SDL_Rect dest;
+    SDL_Rect dest;
 
-	Vector2 relative_position = game_object_->GetTransform()->GetWorldPosition();
+    Vector2 relative_position = game_object_->GetTransform()->GetWorldPosition();
 
-	dest.x = static_cast<int>(pivot_.x + relative_position.x);
-	dest.y = static_cast<int>(pivot_.y + relative_position.y);
+    dest.x = static_cast<int>(pivot_.x + relative_position.x);
+    dest.y = static_cast<int>(pivot_.y + relative_position.y);
 
     dest.w = static_cast<int>(width_ * transform_->scale_.x);
     dest.h = static_cast<int>(height_ * transform_->scale_.y);
 
-	// TO-DO: implement pivot
+    // TO-DO: implement pivot
     //SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);
 
     //SDL_RenderDrawPoint(renderer_, dest.x, dest.y);
@@ -75,6 +75,10 @@ void SpriteRenderer::Update() {
     else {
         SDL_RenderCopy(renderer_, texture_, nullptr, &dest);
     }
+}
+
+void SpriteRenderer::Update() {
+    Render();
 }
 
 void SpriteRenderer::DrawUI(){

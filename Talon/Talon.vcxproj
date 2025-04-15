@@ -149,6 +149,7 @@
     <ClInclude Include="include\Core\GameObject.h" />
     <ClInclude Include="include\Core\MindCore.h" />
     <ClInclude Include="include\Core\MindEngine.h" />
+    <ClInclude Include="include\Core\SceneManager.h" />
     <ClInclude Include="include\Core\Transform.h" />
     <ClInclude Include="include\EditorUI\ConsolePanel.h" />
     <ClInclude Include="include\EditorUI\EditorUIManager.h" />

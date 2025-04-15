@@ -16,6 +16,7 @@
 #include "EditorUIManager.h"
 #include "Console.hpp"
 #include "MindEngine.h"
+#include "SceneManager.h"
 
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
@@ -24,6 +25,8 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+
+EngineMode SceneManager::running_mode_ = EngineMode::Edit;
 
 std::shared_ptr<GameObject> player;
 
@@ -131,6 +134,20 @@ void SetUpWall() {
 	MindEngine::AddGameObject(wall);
 }
 
+void Play() {
+	std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> scene = MindEngine::GetAllGameObjects();
+
+	for (auto& object : *scene) {
+		object->Awake();
+	}
+
+	for (auto& object : *scene) {
+		object->Start();
+	}
+
+	Console::Info("Play mode started", __FILE__, __LINE__);
+}
+
 int main() {
 	if (!WindowManager::Init("Talon Engine", 800, 600)) {
 		return -1;
@@ -149,24 +166,15 @@ int main() {
 
 	std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> scene = MindEngine::GetAllGameObjects();
 
-	CollisionManager::SetScene(*scene);
-
 	if (scene == nullptr) {
 		LOG_ERROR("Scene is null");
 		return -1;
 	}
 
-	for (auto& object : *scene) {
-		object->Awake();
-	}
-
-	for (auto& object : *scene) {
-		object->Start();
-	}
-
 	player->GetComponent<Animator>()->SetRender(WindowManager::GetRenderer());
 
 	bool running = true;
+	bool called_play = false;
 	SDL_Event event;
 
 	while (running) {
@@ -175,14 +183,39 @@ int main() {
 			if (event.type == SDL_QUIT) running = false;
 		}
 
+		if (InputSystem::GetKeyDown("Pause")) {
+			if (SceneManager::IsPlaying()) {
+				SceneManager::SetRunningMode(EngineMode::Edit);
+				called_play = false;
+			}
+			else {
+				SceneManager::SetRunningMode(EngineMode::Play);
+			}
+		}
+
+		if (SceneManager::IsPlaying() && !called_play) {
+			Play();
+			called_play = true;
+		}
+
 		editor_ui_manager.InitFrame();
 
 		SDL_SetRenderTarget(WindowManager::GetRenderer(), WindowManager::GetSceneTexture());
 		SDL_SetRenderDrawColor(WindowManager::GetRenderer(), 0, 0, 0, 255);
 		SDL_RenderClear(WindowManager::GetRenderer());
 
-		for (auto& object : *scene) {
-			object->Update();
+		if (SceneManager::IsPlaying()) {
+			for (auto& object : *scene) {
+				object->Update();
+			}
+		}
+		else {
+			for (auto& object : *scene) {
+				std::shared_ptr<SpriteRenderer> renderer = object->GetComponent<SpriteRenderer>();
+				if (renderer) {
+					renderer->Render();
+				}
+			}
 		}
 
 		for (auto& object : *scene) {

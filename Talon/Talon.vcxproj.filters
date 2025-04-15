@@ -144,9 +144,6 @@
     <ClInclude Include="include\EditorUI\InspectorPanel.h">
       <Filter>Header Files\EditorUI</Filter>
     </ClInclude>
-    <ClInclude Include="include\System\Console.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Core\MindEngine.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
@@ -155,6 +152,12 @@
     </ClInclude>
     <ClInclude Include="include\EditorUI\ScenePanel.hpp">
       <Filter>Header Files\EditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\SceneManager.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\System\Console.hpp">
+      <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

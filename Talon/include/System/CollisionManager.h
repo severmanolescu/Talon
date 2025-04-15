@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "BoxCollider.h"
 #include "PhysicsUtils.h"
+#include "MindEngine.h"
 
 #include <vector>
 #include <memory>
@@ -10,7 +11,9 @@
 class CollisionManager {
 public:
 	static bool CheckCollision(GameObject* source, const SDL_Rect& predictedRect) {
-		for (auto& obj : scene_) {
+		std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> scene = MindEngine::GetAllGameObjects();
+
+		for (auto& obj : *scene) {
 			if (obj.get() == source) continue;
 
 			auto collider = obj->GetComponent<BoxCollider>();
@@ -22,16 +25,4 @@ public:
 		}
 		return false;
 	}
-
-	static void SetScene(const std::vector<std::shared_ptr<GameObject>>& scene) {
-		if(&scene != nullptr)
-			scene_ = scene;
-	}
-
-	static inline std::vector<std::shared_ptr<GameObject>> GetScene() {
-		return scene_;
-	}
-
-private:
-	static inline std::vector<std::shared_ptr<GameObject>> scene_;
 };

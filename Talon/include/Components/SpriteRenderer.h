@@ -33,6 +33,8 @@ public:
 	void Update() override;
 
 	void DrawUI() override;
+
+	void Render();
 private:
 	std::shared_ptr<Transform> transform_;
 
