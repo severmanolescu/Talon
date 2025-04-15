@@ -40,6 +40,8 @@ void SpriteRenderer::ClearSourceRect() {
 }
 
 void SpriteRenderer::Awake(){
+    ui_frame_height_ = 6;
+
 	transform_ = game_object_->GetTransform();
 }
 
@@ -50,11 +52,22 @@ void SpriteRenderer::Update() {
 
 	SDL_Rect dest;
 
-    dest.x = static_cast<int>(transform_->position_.x);
-    dest.y = static_cast<int>(transform_->position_.y);
+	Vector2 relative_position = game_object_->GetTransform()->GetWorldPosition();
 
-    dest.w = width_;
-    dest.h = height_;
+	dest.x = static_cast<int>(pivot_.x + relative_position.x);
+	dest.y = static_cast<int>(pivot_.y + relative_position.y);
+
+    dest.w = static_cast<int>(width_ * transform_->scale_.x);
+    dest.h = static_cast<int>(height_ * transform_->scale_.y);
+
+	// TO-DO: implement pivot
+    //SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);
+
+    //SDL_RenderDrawPoint(renderer_, dest.x, dest.y);
+    //SDL_RenderDrawPoint(renderer_, dest.x - 1, dest.y);
+    //SDL_RenderDrawPoint(renderer_, dest.x + 1, dest.y);
+    //SDL_RenderDrawPoint(renderer_, dest.x, dest.y - 1);
+    //SDL_RenderDrawPoint(renderer_, dest.x, dest.y + 1);
 
     if (use_source_rect_) {
         SDL_RenderCopy(renderer_, texture_, &source_rect_, &dest);
@@ -62,4 +75,20 @@ void SpriteRenderer::Update() {
     else {
         SDL_RenderCopy(renderer_, texture_, nullptr, &dest);
     }
+}
+
+void SpriteRenderer::DrawUI(){
+    BeginDraw("SpriteRenderer");
+
+    DrawInt2Control(
+        "Dimension",
+        "Width",
+        &width_,
+        "Heihgt",
+        &height_
+    );
+
+	DrawVector2Control("Pivot", pivot_);
+
+    EndDraw();
 }

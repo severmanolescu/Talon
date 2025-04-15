@@ -50,6 +50,10 @@ struct AnimatorStateTransition {
 
 class AnimatorStateMachine : public MindCore {
 public:
+	AnimatorStateMachine() {
+		priority = 13;
+	}
+
 	void Awake() override;
 	void Update() override;
 

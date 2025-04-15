@@ -150,8 +150,8 @@ void AnimatorStateMachine::SetAnimation(Animation animation){
 
 	current_animation_name_ = animation.name;
 
-	animator_->columns_ = animation.columns;
-	animator_->rows_ = animation.rows;
+	animator_->spritesheet_columns_ = animation.columns;
+	animator_->spritesheet_rows = animation.rows;
 
 	animator_->frame_width_ = animation.frame_width;
 	animator_->frame_height_ = animation.frame_height;

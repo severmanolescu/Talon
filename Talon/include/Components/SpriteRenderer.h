@@ -11,11 +11,14 @@
 
 class SpriteRenderer : public MindCore {
 public:
-	int width_ = 32;
-	int height_ = 64;
-	Uint8 color_r_ = 255, color_g_ = 255, color_b_ = 0;
+	int width_ = 16;
+	int height_ = 16;
 
-	SpriteRenderer(SDL_Renderer* renderer) : renderer_(renderer) {}
+	Vector2 pivot_ = { 0.5f, 0.5f };
+
+	SpriteRenderer(SDL_Renderer* renderer) : renderer_(renderer) {
+		priority = 15;
+	}
 
 	void SetImage(const std::string& path);
 
@@ -28,6 +31,8 @@ public:
 	void Awake() override;
 
 	void Update() override;
+
+	void DrawUI() override;
 private:
 	std::shared_ptr<Transform> transform_;
 

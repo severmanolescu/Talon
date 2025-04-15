@@ -46,6 +46,21 @@
     <Filter Include="Resource Files\Config\Player">
       <UniqueIdentifier>{7e383178-775f-4081-9c8c-18104c6877e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utils\ImGui">
+      <UniqueIdentifier>{36b13e2e-36b7-47b2-8761-bc22d8283058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils\ImGui\backend">
+      <UniqueIdentifier>{2ea54e72-5e4d-415e-9279-558f5bf15889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EditorUI">
+      <UniqueIdentifier>{2327d015-66df-4327-9693-8e58458a788c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\EditorUI">
+      <UniqueIdentifier>{a72a8e99-c966-4fb9-aeb6-91e15ed46544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{b8ae6444-a00a-4632-80c0-e0938e196e14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\BoxCollider.h">
@@ -93,6 +108,54 @@
     <ClInclude Include="include\Utils\json.hpp">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="include\Utils\ImGui\backend\imgui_impl_sdl2.h">
+      <Filter>Header Files\Utils\ImGui\backend</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\ImGui\backend\imgui_impl_sdlrenderer2.h">
+      <Filter>Header Files\Utils\ImGui\backend</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\ImGui\imconfig.h">
+      <Filter>Header Files\Utils\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\ImGui\imgui.h">
+      <Filter>Header Files\Utils\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\ImGui\imgui_internal.h">
+      <Filter>Header Files\Utils\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\ImGui\imstb_rectpack.h">
+      <Filter>Header Files\Utils\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\ImGui\imstb_truetype.h">
+      <Filter>Header Files\Utils\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\ImGui\imstb_textedit.h">
+      <Filter>Header Files\Utils\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EditorUI\ConsolePanel.h">
+      <Filter>Header Files\EditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EditorUI\EditorUIManager.h">
+      <Filter>Header Files\EditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EditorUI\HierarchyPanel.h">
+      <Filter>Header Files\EditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EditorUI\InspectorPanel.h">
+      <Filter>Header Files\EditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\System\Console.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\MindEngine.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EditorUI\GamePanel.hpp">
+      <Filter>Header Files\EditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EditorUI\ScenePanel.hpp">
+      <Filter>Header Files\EditorUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\BoxCollider.cpp">
@@ -128,6 +191,54 @@
     <ClCompile Include="src\System\InputSystem.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
+    <ClCompile Include="include\Utils\ImGui\backend\imgui_impl_sdl2.cpp">
+      <Filter>Header Files\Utils\ImGui\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Utils\ImGui\backend\imgui_impl_sdlrenderer2.cpp">
+      <Filter>Header Files\Utils\ImGui\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Utils\ImGui\imgui.cpp">
+      <Filter>Header Files\Utils\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Utils\ImGui\imgui_draw.cpp">
+      <Filter>Header Files\Utils\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Utils\ImGui\imgui_tables.cpp">
+      <Filter>Header Files\Utils\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Utils\ImGui\imgui_widgets.cpp">
+      <Filter>Header Files\Utils\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EditorUI\ConsolePanel.cpp">
+      <Filter>Source Files\EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EditorUI\EditorUIManager.cpp">
+      <Filter>Source Files\EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EditorUI\HierarchyPanel.cpp">
+      <Filter>Source Files\EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EditorUI\InspectorPanel.cpp">
+      <Filter>Source Files\EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Utils\ImGui\imgui_demo.cpp">
+      <Filter>Header Files\Utils\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\Console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\MindEngine.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EditorUI\GamePanel.cpp">
+      <Filter>Source Files\EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EditorUI\ScenePanel.cpp">
+      <Filter>Source Files\EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\config\input.json">
@@ -135,6 +246,9 @@
     </None>
     <None Include="assets\config\player\animation_state.json">
       <Filter>Resource Files\Config\Player</Filter>
+    </None>
+    <None Include="settings\editor_settings.json">
+      <Filter>Settings</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +283,9 @@
       <Filter>Resource Files\Assets\Player</Filter>
     </Image>
     <Image Include="assets\player\grass.png">
+      <Filter>Resource Files\Assets\Player</Filter>
+    </Image>
+    <Image Include="assets\player\weapon.png">
       <Filter>Resource Files\Assets\Player</Filter>
     </Image>
   </ItemGroup>

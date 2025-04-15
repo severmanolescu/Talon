@@ -6,6 +6,8 @@
 #include "iostream"
 
 void Rigidbody::Awake() {
+	ui_frame_height_ = 15.5;
+
 	if (game_object_) {
 		transform_ = game_object_->GetComponent<Transform>();
 
@@ -94,4 +96,21 @@ void Rigidbody::Update() {
 	CheckAndResolveCollision();
 
 	acceleration_ = { 0.0f, 0.0f };
+}
+
+void Rigidbody::DrawUI(){
+	BeginDraw("Rigidbody");
+
+	DrawVector2Control("Velocity", velocity_);
+	DrawVector2Control("Acceleration", acceleration_);
+	DrawVector2Control("Liniar Drag", linear_drag_);
+
+	DrawFloatControl("Gravity", &gravity_);
+	DrawFloatControl("Mass", &mass_);
+	DrawFloatControl("Max Velocity", &max_velocity_);
+
+	DrawCheckbox("Is Kinematic", &is_kinematic_);
+	DrawCheckbox("Use Gravity", &use_gravity_);
+       
+	EndDraw();
 }

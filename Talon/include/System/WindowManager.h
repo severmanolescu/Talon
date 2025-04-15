@@ -4,17 +4,34 @@
 
 class WindowManager {
 public:
-	bool Init(const char* title, int width, int height);
+	static inline int width_  = 800;
+	static inline int height_ = 600;
 
-	void Clear();
+	static bool Init(const char* title, int width, int height);
 
-	void Present();
+	static void Clear();
 
-	void Shutdown();
+	static void Present();
 
-	SDL_Renderer* GetRenderer() const;
+	static void Shutdown();
+
+	static void ResizeSceneTexture(int width, int height);
+
+	static SDL_Renderer* GetRenderer() {
+		return renderer_;
+	}
+
+	static SDL_Window* GetWindow() {
+		return window_;
+	}
+
+	static SDL_Texture* GetSceneTexture() {
+		return scene_texture_;
+	}
 
 private:
-	SDL_Window* window = nullptr;
-	SDL_Renderer* renderer = nullptr;
+	static inline SDL_Window* window_ = nullptr;
+	static inline SDL_Renderer* renderer_ = nullptr;
+
+	static inline SDL_Texture* scene_texture_ = nullptr;
 };

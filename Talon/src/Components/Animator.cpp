@@ -5,6 +5,8 @@
 #include "iostream"
 
 void Animator::Awake() {
+    ui_frame_height_ = 6;
+
 	sprite_renderer_ = game_object_->GetComponent<SpriteRenderer>();
 	animator_state_machine_ = game_object_->GetComponent<AnimatorStateMachine>();
 }
@@ -18,8 +20,6 @@ void Animator::UpdateFrames(){
         frame_timer_ -= frame_duration_;
 
         if (frame_index_ < frame_clips_.size()) {
-            std::cout << "[Animator] Sprite sheet set: " << frame_index_ << " " << frame_clips_.size() << "\n";
-
             sprite_renderer_->SetSourceRect(frame_clips_[frame_index_]);
         }
 
@@ -38,8 +38,8 @@ void Animator::Update() {
 void Animator::GenerateFrameClips() {
     frame_clips_.clear();
 
-    for (int row = 0; row < rows_; row++) {
-        for (int column = 0; column < columns_; column++) {
+    for (int row = 0; row < spritesheet_rows; row++) {
+        for (int column = 0; column < spritesheet_columns_; column++) {
             SDL_Rect frame;
 
             frame.x = column * frame_width_;
@@ -72,4 +72,26 @@ void Animator::SetSpriteSheet(std::string path, SDL_Renderer* renderer) {
     GenerateFrameClips();
 
     UpdateFrames();
+}
+
+void Animator::DrawUI(){
+	BeginDraw("Animator");
+
+    DrawInt2Control(
+        "Frame",
+        "Width",
+        &frame_width_, 
+        "Heihgt",
+        &frame_height_
+    );
+
+    DrawInt2Control(
+        "Spritehseet",
+        "Columns",
+        &spritesheet_columns_,
+        "Rows",
+        &spritesheet_rows
+    );
+    
+	EndDraw();
 }
