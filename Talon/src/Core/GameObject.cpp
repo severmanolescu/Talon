@@ -94,6 +94,17 @@ void GameObject::DrawGizmo(){
 	}
 }
 
+void GameObject::Render(){
+	std::shared_ptr<SpriteRenderer> renderer = GetComponent<SpriteRenderer>();
+	if (renderer) {
+		renderer->Render();
+	}
+
+	for (auto& child : childrens_) {
+		child->Render();
+	}
+}
+
 void GameObject::RemoveComponent(const std::shared_ptr<MindCore> component){
 	to_remove_components_.push_back(component);
 }

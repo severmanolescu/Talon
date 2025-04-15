@@ -207,6 +207,7 @@
   <ItemGroup>
     <None Include="assets\config\input.json" />
     <None Include="assets\config\player\animation_state.json" />
+    <None Include="assets\scene.json" />
     <None Include="settings\editor_settings.json" />
   </ItemGroup>
   <ItemGroup>

@@ -41,12 +41,10 @@ void SpriteRenderer::ClearSourceRect() {
 
 void SpriteRenderer::Awake(){
     ui_frame_height_ = 6;
-
-	transform_ = game_object_->GetTransform();
 }
 
 void SpriteRenderer::Render(){
-    if (!transform_ || !renderer_) {
+    if (!renderer_) {
      return;
     }
 
@@ -57,8 +55,8 @@ void SpriteRenderer::Render(){
     dest.x = static_cast<int>(pivot_.x + relative_position.x);
     dest.y = static_cast<int>(pivot_.y + relative_position.y);
 
-    dest.w = static_cast<int>(width_ * transform_->scale_.x);
-    dest.h = static_cast<int>(height_ * transform_->scale_.y);
+    dest.w = static_cast<int>(width_ * game_object_->GetTransform()->scale_.x);
+    dest.h = static_cast<int>(height_ * game_object_->GetTransform()->scale_.y);
 
     // TO-DO: implement pivot
     //SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);

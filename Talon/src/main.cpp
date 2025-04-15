@@ -37,16 +37,6 @@ void SetUpPlayer() {
 
 	player_controller->renderer_ = WindowManager::GetRenderer();
 
-	player_controller->idle_up_ = "./assets/player/player_idle_up.png";
-	player_controller->idle_down_ = "./assets/player/player_idle_down.png";
-	player_controller->idle_left_ = "./assets/player/player_idle_left.png";
-	player_controller->idle_right_ = "./assets/player/player_idle_right.png";
-
-	player_controller->walk_up_ = "./assets/player/player_walk_up.png";
-	player_controller->walk_down_ = "./assets/player/player_walk_down.png";
-	player_controller->walk_left_ = "./assets/player/player_walk_left.png";
-	player_controller->walk_right_ = "./assets/player/player_walk_right.png";
-
 	player->AddComponent(player_controller);
 
 	// Player BoxCollider
@@ -62,7 +52,10 @@ void SetUpPlayer() {
 	// Player SpriteRendered
 	std::shared_ptr<SpriteRenderer> sprite_rendered_player = std::make_shared<SpriteRenderer>(WindowManager::GetRenderer());
 
-	//sprite_rendered_player->SetImage("./assets/player/player_down.png");
+	sprite_rendered_player->SetImage("./assets/player/player_down.png");
+
+	sprite_rendered_player->width_ = 32;
+	sprite_rendered_player->height_ = 64;
 
 	player->AddComponent(sprite_rendered_player);
 
@@ -211,10 +204,7 @@ int main() {
 		}
 		else {
 			for (auto& object : *scene) {
-				std::shared_ptr<SpriteRenderer> renderer = object->GetComponent<SpriteRenderer>();
-				if (renderer) {
-					renderer->Render();
-				}
+				object->Render();
 			}
 		}
 

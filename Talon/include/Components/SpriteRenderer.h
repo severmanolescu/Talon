@@ -36,8 +36,6 @@ public:
 
 	void Render();
 private:
-	std::shared_ptr<Transform> transform_;
-
 	SDL_Renderer* renderer_;
 
 	SDL_Texture* texture_ = nullptr;

@@ -3,9 +3,11 @@
 #include "WindowManager.h"
 
 SDL_Rect BoxCollider::GetBounds() const {
-	if (!transform_) return { 0, 0, 0, 0 };
+	std::shared_ptr<Transform> transform = game_object_->GetTransform();
 
-	Vector2 world_pos = transform_->GetWorldPosition();
+	if (!transform) return { 0, 0, 0, 0 };
+
+	Vector2 world_pos = transform->GetWorldPosition();
 
 	return SDL_Rect{
 		static_cast<int>(world_pos.x + offset_.x),
@@ -16,7 +18,7 @@ SDL_Rect BoxCollider::GetBounds() const {
 }
 
 void BoxCollider::DrawGizmo() {
-	if (!draw_debug_ || !WindowManager::GetRenderer() || !transform_) return;
+	if (!draw_debug_ || !WindowManager::GetRenderer()) return;
 
 	SDL_Rect rect = GetBounds();
 	SDL_SetRenderDrawColor(WindowManager::GetRenderer(), 0, 255, 0, 255);
