@@ -13,14 +13,18 @@ void PlayerController::Awake() {
 	last_state_ = std::make_pair(animation_state_, direction_);
 
 	animator_state_machine_ = game_object_->GetComponent<AnimatorStateMachine>();
+
+	renderer_ = WindowManager::GetRenderer();
 }
 
 void PlayerController::Start(){
 	animation_state_ = AnimationState::Idle;
 	direction_ = Direction::Down;
 
-	animator_state_machine_->SetState("Idle");
-	animator_state_machine_->SetInt("direction", 1);
+	if (animator_state_machine_) {
+		animator_state_machine_->SetState("Idle");
+		animator_state_machine_->SetInt("direction", 1);
+	}
 }
 
 void PlayerController::SetAnimatorVariables() {
@@ -48,7 +52,7 @@ void PlayerController::SetAnimatorVariables() {
 }
 
 void PlayerController::Update() {
-	if (!rigidbody_ || !renderer_) {
+	if (!rigidbody_ || !renderer_ || !animator_state_machine_) {
 		return;
 	}
 
@@ -114,4 +118,41 @@ void PlayerController::DrawUI(){
 	DrawVector2Control("Jump Power", jump_power_);
 
 	EndDraw();
+}
+
+void PlayerController::Serialize(nlohmann::json& json){
+	nlohmann::json player_controller;
+
+	player_controller["type"] = "PlayerController";
+
+	player_controller["data"]["walk speed"] = walk_speed_;
+	player_controller["data"]["sprint speed multiplier"] = sprint_speed_multiplier_;
+
+	player_controller["data"]["jump power"] =
+	{
+		{"x", jump_power_.x},
+		{"y", jump_power_.y}
+	};
+
+	player_controller["active"] = active_;
+
+	json.push_back(player_controller);
+}
+
+void PlayerController::Deserialize(const nlohmann::json& json){
+	if (json.contains("walk speed")) {
+		walk_speed_ = json["walk speed"];
+	}
+
+	if (json.contains("sprint speed multiplier")) {
+		sprint_speed_multiplier_ = json["sprint speed multiplier"];
+	}
+
+	if (json.contains("jump power")) {
+		jump_power_ =
+		{
+			json["jump power"]["x"],
+			json["jump power"]["y"]
+		};
+	}
 }

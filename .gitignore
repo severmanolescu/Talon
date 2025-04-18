@@ -48,3 +48,8 @@ build/
 
 # Ignore crash dumps
 *.dmp
+
+# Doxygen output
+/html/
+/latex/
+/docs/

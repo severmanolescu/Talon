@@ -1,0 +1,299 @@
+{
+    "game_objects": [
+        {
+            "active": true,
+            "components": [
+                {
+                    "active": true,
+                    "data": {
+                        "position": {
+                            "x": 100.0,
+                            "y": 150.0
+                        },
+                        "relative position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "Transform"
+                },
+                {
+                    "active": false,
+                    "data": {
+                        "draw debug": true,
+                        "offset": {
+                            "x": 4.0,
+                            "y": 40.0
+                        },
+                        "scale": {
+                            "height": 20,
+                            "width": 25
+                        }
+                    },
+                    "type": "BoxCollider"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "gravity": 9.8100004196167,
+                        "is kinematic": false,
+                        "mass": 1.0,
+                        "max velocity": 50.0,
+                        "use gravity": false
+                    },
+                    "type": "Rigidbody"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "config path": "./assets/config/player/animation_state.json"
+                    },
+                    "type": "AnimatorStateMachine"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "frame": {
+                            "duration": 0.15000000596046448,
+                            "height": 16,
+                            "width": 16
+                        },
+                        "spritesheet": {
+                            "columns": 0,
+                            "rows": 0
+                        }
+                    },
+                    "type": "Animator"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "image": "./assets/player/player_down.png",
+                        "pivot": {
+                            "x": 0.5,
+                            "y": 0.5
+                        },
+                        "sprite": {
+                            "height": 64,
+                            "width": 32
+                        }
+                    },
+                    "type": "SpriteRenderer"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "jump power": {
+                            "x": 0.0,
+                            "y": -10.0
+                        },
+                        "sprint speed multiplier": 2.0,
+                        "walk speed": 10.0
+                    },
+                    "type": "PlayerController"
+                }
+            ],
+            "name": "Player",
+            "uuid": "8af36ed67add31df6075efda580b3049"
+        },
+        {
+            "active": true,
+            "components": [
+                {
+                    "active": true,
+                    "data": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relative position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "Transform"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "draw debug": false,
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "scale": {
+                            "height": 50,
+                            "width": 50
+                        }
+                    },
+                    "type": "BoxCollider"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "image": "./assets/player/weapon.png",
+                        "pivot": {
+                            "x": 0.5,
+                            "y": 0.5
+                        },
+                        "sprite": {
+                            "height": 16,
+                            "width": 16
+                        }
+                    },
+                    "type": "SpriteRenderer"
+                }
+            ],
+            "name": "Weapon",
+            "parent": "8af36ed67add31df6075efda580b3049",
+            "uuid": "d6bf8090dc9566a80406e010ddd99267"
+        },
+        {
+            "active": true,
+            "components": [
+                {
+                    "active": true,
+                    "data": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relative position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "Transform"
+                }
+            ],
+            "name": "Backpack",
+            "parent": "8af36ed67add31df6075efda580b3049",
+            "uuid": "de837fbe3ccb6db051e47adf734c8c0a"
+        },
+        {
+            "active": true,
+            "components": [
+                {
+                    "active": true,
+                    "data": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relative position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "Transform"
+                }
+            ],
+            "name": "Bow",
+            "parent": "8af36ed67add31df6075efda580b3049",
+            "uuid": "1a1c207663b2ac6f6333259586f72f13"
+        },
+        {
+            "active": true,
+            "components": [
+                {
+                    "active": true,
+                    "data": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relative position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "Transform"
+                }
+            ],
+            "name": "Food",
+            "parent": "8af36ed67add31df6075efda580b3049",
+            "uuid": "8e543d0ad31af674078dbe9b0bfe0f95"
+        },
+        {
+            "active": true,
+            "components": [
+                {
+                    "active": true,
+                    "data": {
+                        "position": {
+                            "x": 100.0,
+                            "y": 400.0
+                        },
+                        "relative position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "Transform"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "draw debug": true,
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "scale": {
+                            "height": 32,
+                            "width": 32
+                        }
+                    },
+                    "type": "BoxCollider"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "image": "assets\\player\\grass.png",
+                        "pivot": {
+                            "x": 0.5,
+                            "y": 0.5
+                        },
+                        "sprite": {
+                            "height": 32,
+                            "width": 32
+                        }
+                    },
+                    "type": "SpriteRenderer"
+                }
+            ],
+            "name": "Wall",
+            "uuid": "6f13b90c3fbf5aed932266819e557821"
+        }
+    ]
+}

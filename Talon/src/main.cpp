@@ -22,6 +22,8 @@
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_sdlrenderer2.h"
 
+#include "ComponentFactory.h"
+
 #include <vector>
 #include <memory>
 #include <iostream>
@@ -93,7 +95,7 @@ void SetUpPlayer() {
 	weapon->AddComponent(std::make_shared<BoxCollider>());
 
 	player->AddChild(weapon);
-	player->AddChild(std::make_shared<GameObject>("Backack"));
+	player->AddChild(std::make_shared<GameObject>("Backpack"));
 	player->AddChild(std::make_shared<GameObject>("Bow"));
 	player->AddChild(std::make_shared<GameObject>("Food"));
 
@@ -146,6 +148,14 @@ int main() {
 		return -1;
 	}
 
+	ComponentFactory::Instance().Register("Animator", &Animator::Create);
+	ComponentFactory::Instance().Register("BoxCollider", &BoxCollider::Create);
+	ComponentFactory::Instance().Register("PlayerController", &PlayerController::Create);
+	ComponentFactory::Instance().Register("Rigidbody", &Rigidbody::Create);
+	ComponentFactory::Instance().Register("SpriteRenderer", &SpriteRenderer::Create);
+	ComponentFactory::Instance().Register("Transform", &Transform::Create);
+	ComponentFactory::Instance().Register("AnimatorStateMachine", &AnimatorStateMachine::Create);
+
 	EditorUIManager editor_ui_manager;
 
 	editor_ui_manager.InitImGui();
@@ -153,9 +163,11 @@ int main() {
 	InputSystem::LoadFromJson("./assets/config/input.json");
 	editor_ui_manager.LoadSettings("./settings/editor_settings.json");
 
-	SetUpPlayer();
+	//SetUpPlayer();
 
-	SetUpWall();
+	//SetUpWall();
+
+	SceneManager::LoadScene();
 
 	std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> scene = MindEngine::GetAllGameObjects();
 
@@ -164,7 +176,7 @@ int main() {
 		return -1;
 	}
 
-	player->GetComponent<Animator>()->SetRender(WindowManager::GetRenderer());
+	//player->GetComponent<Animator>()->SetRender(WindowManager::GetRenderer());
 
 	bool running = true;
 	bool called_play = false;
@@ -180,9 +192,15 @@ int main() {
 			if (SceneManager::IsPlaying()) {
 				SceneManager::SetRunningMode(EngineMode::Edit);
 				called_play = false;
+
+				MindEngine::RemoveAllGameObjects();
+
+				SceneManager::LoadScene();
 			}
 			else {
 				SceneManager::SetRunningMode(EngineMode::Play);
+
+				SceneManager::SaveScene();
 			}
 		}
 
@@ -232,6 +250,8 @@ int main() {
 	}
 
 	WindowManager::Shutdown();
+
+	//SceneManager::SaveScene();
 
 	editor_ui_manager.SaveSettings("./settings/editor_settings.json");
 

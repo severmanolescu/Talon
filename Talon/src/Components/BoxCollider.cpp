@@ -30,10 +30,8 @@ void BoxCollider::DrawUI(){
 
     DrawInt2Control(
         "Dimension",
-        "Width",
-        &width_,
-        "Heihgt",
-        &height_
+        "Width", &width_,
+        "Heihgt", &height_
     );
 
 	DrawVector2Control("Offset", offset_);
@@ -41,6 +39,50 @@ void BoxCollider::DrawUI(){
 	DrawCheckbox("Draw Debug", &draw_debug_);
 
 	EndDraw();
+}
+
+void BoxCollider::Serialize(nlohmann::json& json){
+	nlohmann::json box_collider;
+
+	box_collider["type"] = "BoxCollider";
+
+	box_collider["data"]["scale"] =
+	{
+		{"width", width_},
+		{"height", height_}
+	};
+
+	box_collider["data"]["offset"] =
+	{
+		{"x", offset_.x},
+		{"y", offset_.y}
+	};
+
+	box_collider["data"]["draw debug"] = draw_debug_;
+
+	box_collider["active"] = active_;
+
+	json.push_back(box_collider);
+}
+
+void BoxCollider::Deserialize(const nlohmann::json& json){
+	if (json.contains("scale"))
+	{
+		width_ = json["scale"]["width"];
+		height_ = json["scale"]["height"];
+	}
+
+	if (json.contains("offset")) {
+		offset_ =
+		{
+			json["offset"]["x"],
+			json["offset"]["y"]
+		};
+	}
+
+	if (json.contains("draw debug")) {
+		draw_debug_ = json["draw debug"];
+	}
 }
 
 void BoxCollider::Awake(){

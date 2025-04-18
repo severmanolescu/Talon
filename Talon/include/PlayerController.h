@@ -34,16 +34,6 @@ public:
 
 	Vector2 jump_power_ = { .0f , -10.0f };
 
-	std::string idle_up_;
-	std::string idle_down_;
-	std::string idle_left_;
-	std::string idle_right_;
-
-	std::string walk_up_;
-	std::string walk_down_;
-	std::string walk_left_;
-	std::string walk_right_;
-
 	SDL_Renderer* renderer_ = nullptr;
 
 	void Awake() override;
@@ -51,6 +41,11 @@ public:
 	void Update() override;
 	void OnDestroy() override;
 	void DrawUI() override;
+
+	void Serialize(nlohmann::json& json) override;
+	void Deserialize(const nlohmann::json& json) override;
+
+	REGISTER_COMPONENT(PlayerController)
 
 private:
 	std::shared_ptr<Rigidbody> rigidbody_;

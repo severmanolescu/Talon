@@ -88,6 +88,11 @@ public:
 	float GetFloat(const std::string& name);
 
 	void LoadFromJson(const std::string& path);
+
+	void Serialize(nlohmann::json& json) override;
+	void Deserialize(const nlohmann::json& json) override;
+
+	REGISTER_COMPONENT(AnimatorStateMachine)
 private:
 	std::shared_ptr<Animator> animator_;
 
@@ -100,6 +105,8 @@ private:
 	std::string current_state_;
 
 	std::string current_animation_name_;
+
+	std::string config_path_;
 
 	void SetAnimation(Animation animation);
 };

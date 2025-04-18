@@ -159,6 +159,18 @@
     <ClInclude Include="include\System\Console.hpp">
       <Filter>Header Files\System</Filter>
     </ClInclude>
+    <ClInclude Include="include\Core\ComponentFactory.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\UIUtils.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\IComponentLifecycle.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\ISerializable.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\BoxCollider.cpp">
@@ -239,7 +251,16 @@
     <ClCompile Include="src\EditorUI\ScenePanel.cpp">
       <Filter>Source Files\EditorUI</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
+    <ClCompile Include="include\Core\SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Transform.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\IComponentLifecycle.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\UIUtils.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -253,6 +274,8 @@
     <None Include="settings\editor_settings.json">
       <Filter>Settings</Filter>
     </None>
+    <None Include="assets\scene.json" />
+    <None Include="test.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\player\grass_tiles.png">

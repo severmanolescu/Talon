@@ -23,6 +23,8 @@ void SpriteRenderer::SetImage(const std::string& path) {
     if (!texture_) {
         std::cerr << "[SpriteRenderer] Failed to create texture: " << path << "\n";
     }
+
+    image_path = path;
 }
 
 void SpriteRenderer::SetSourceRect(const SDL_Rect& rect) {
@@ -93,4 +95,48 @@ void SpriteRenderer::DrawUI(){
 	DrawVector2Control("Pivot", pivot_);
 
     EndDraw();
+}
+void SpriteRenderer::Serialize(nlohmann::json& json) {
+    nlohmann::json sprite_renderer;
+
+    sprite_renderer["type"] = "SpriteRenderer";
+
+    sprite_renderer["data"]["sprite"] =
+    {
+        {"width", width_},
+        {"height", height_}
+    };
+
+    sprite_renderer["data"]["pivot"] =
+    {
+        {"x", pivot_.x},
+        {"y", pivot_.y}
+    };
+
+    sprite_renderer["data"]["image"] = image_path;
+
+    sprite_renderer["active"] = active_;
+
+    json.push_back(sprite_renderer);
+}
+
+void SpriteRenderer::Deserialize(const nlohmann::json& json) {
+    if (json.contains("sprite"))
+    {
+        width_ = json["sprite"]["width"];
+        height_ = json["sprite"]["height"];
+    }
+
+    if (json.contains("pivot"))
+    {
+        pivot_ =
+        {
+            json["pivot"]["x"],
+            json["pivot"]["y"]
+        };
+    }
+
+    if (json.contains("image")) {
+        SetImage(json["image"]);
+    }
 }

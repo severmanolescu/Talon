@@ -34,6 +34,10 @@ void MindEngine::RemoveGameObject(const std::shared_ptr<GameObject>& object) {
     }
 }
 
+void MindEngine::RemoveAllGameObjects(){
+    game_objects_->clear();
+}
+
 void MindEngine::AddGameObject(const std::shared_ptr<GameObject>& game_object){
 	if (game_objects_) {
 		game_objects_->push_back(game_object);
