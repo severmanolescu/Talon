@@ -22,6 +22,26 @@ void WindowManager::ResizeSceneTexture(int width, int height) {
 	}
 }
 
+void WindowManager::ResizeGameTexture(int width, int height) {
+	if (game_texture_) SDL_DestroyTexture(scene_texture_);
+
+	width_ = width;
+	height_ = height;
+
+	game_texture_ = SDL_CreateTexture(
+		renderer_,
+		SDL_PIXELFORMAT_RGBA8888,
+		SDL_TEXTUREACCESS_TARGET,
+		width,
+		height
+	);
+
+	if (!game_texture_) {
+		std::cerr << "[WindowManager] Scene texture creation failed: " << SDL_GetError() << "\n";
+		return;
+	}
+}
+
 bool WindowManager::Init(const char* title, int width, int height) {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		std::cerr << "[WindowManager] SDL_Init failed: " << SDL_GetError() << "\n";
@@ -69,6 +89,11 @@ void WindowManager::Shutdown() {
 	if (scene_texture_) {
 		SDL_DestroyTexture(scene_texture_);
 		scene_texture_ = nullptr;
+	}
+
+	if (game_texture_) {
+		SDL_DestroyTexture(game_texture_);
+		game_texture_ = nullptr;
 	}
 
 	SDL_Quit();

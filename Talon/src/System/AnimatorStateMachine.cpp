@@ -1,5 +1,6 @@
 #include "AnimatorStateMachine.h"
 #include "GameObject.h"
+#include "Console.hpp"
 
 #include <json.hpp>
 #include <fstream>
@@ -241,9 +242,11 @@ void AnimatorStateMachine::Update() {
 void AnimatorStateMachine::LoadFromJson(const std::string& path) {
 	std::ifstream file(path);
 	if (!file.is_open()) {
-		std::cerr << "[AnimatorStateMachine] Failed to open file: " << path << "\n";
+		LOG_ERROR("[AnimatorStateMachine] Failed to open file: " + path);
 		return;
 	}
+
+	config_path_ = path;
 
 	nlohmann::json json_data;
 	file >> json_data;
@@ -300,5 +303,23 @@ void AnimatorStateMachine::LoadFromJson(const std::string& path) {
 		else continue;
 
 		AddConditionAnimatorState(variable, value, from, to);
+	}
+}
+
+void AnimatorStateMachine::Serialize(nlohmann::json& json){
+	nlohmann::json animator_state_machine;
+
+	animator_state_machine["type"] = "AnimatorStateMachine";
+
+	animator_state_machine["data"]["config path"] = config_path_;
+
+	animator_state_machine["active"] = active_;
+
+	json.push_back(animator_state_machine);
+}
+
+void AnimatorStateMachine::Deserialize(const nlohmann::json& json){
+	if (json.contains("config path")) {
+		LoadFromJson(json["config path"]);
 	}
 }

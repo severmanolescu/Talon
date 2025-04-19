@@ -4,6 +4,8 @@
 #include "Animator.h"
 
 #include <algorithm>
+#include <random>
+#include <sstream>
 
 void GameObject::AddComponent(const std::shared_ptr<MindCore> component) {
 	component->game_object_ = this;
@@ -94,6 +96,63 @@ void GameObject::DrawGizmo(){
 	}
 }
 
+void GameObject::Render(){
+	std::shared_ptr<SpriteRenderer> renderer = GetComponent<SpriteRenderer>();
+	if (renderer) {
+		renderer->Render();
+	}
+
+	for (auto& child : childrens_) {
+		child->Render();
+	}
+}
+
+void GameObject::Serialize(nlohmann::json& json)
+{
+	nlohmann::json object_data;
+
+	object_data["name"] = name_;
+	object_data["active"] = active_;
+	object_data["uuid"] = uuid_;
+
+	if (auto parent = parent_.lock()) {
+		object_data["parent"] = parent->GetUUID();
+	}
+
+	object_data["components"] = nlohmann::json::array();
+
+
+	for (auto& component : components_) {
+		component->Serialize(object_data["components"]);
+	}
+
+	json.push_back(object_data);
+
+	for (auto& child : childrens_) {
+		child->Serialize(json);
+	}
+}
+
+void GameObject::Deserialize(const nlohmann::json& json)
+{
+}
+
 void GameObject::RemoveComponent(const std::shared_ptr<MindCore> component){
 	to_remove_components_.push_back(component);
+}
+
+std::string GameObject::GetUUID(){
+	return uuid_;
+}
+
+void GameObject::GenerateUUID(){
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+	static std::uniform_int_distribution<> dis(0, 15);
+
+	std::stringstream ss;
+	for (int i = 0; i < 32; ++i) {
+		ss << std::hex << dis(gen);
+	}
+	uuid_ = ss.str();
 }

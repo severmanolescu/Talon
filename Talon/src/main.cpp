@@ -16,14 +16,19 @@
 #include "EditorUIManager.h"
 #include "Console.hpp"
 #include "MindEngine.h"
+#include "SceneManager.h"
 
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_sdlrenderer2.h"
 
+#include "ComponentFactory.h"
+
 #include <vector>
 #include <memory>
 #include <iostream>
+
+EngineMode SceneManager::running_mode_ = EngineMode::Edit;
 
 std::shared_ptr<GameObject> player;
 
@@ -33,16 +38,6 @@ void SetUpPlayer() {
 	std::shared_ptr<PlayerController> player_controller = std::make_shared<PlayerController>();
 
 	player_controller->renderer_ = WindowManager::GetRenderer();
-
-	player_controller->idle_up_ = "./assets/player/player_idle_up.png";
-	player_controller->idle_down_ = "./assets/player/player_idle_down.png";
-	player_controller->idle_left_ = "./assets/player/player_idle_left.png";
-	player_controller->idle_right_ = "./assets/player/player_idle_right.png";
-
-	player_controller->walk_up_ = "./assets/player/player_walk_up.png";
-	player_controller->walk_down_ = "./assets/player/player_walk_down.png";
-	player_controller->walk_left_ = "./assets/player/player_walk_left.png";
-	player_controller->walk_right_ = "./assets/player/player_walk_right.png";
 
 	player->AddComponent(player_controller);
 
@@ -59,7 +54,10 @@ void SetUpPlayer() {
 	// Player SpriteRendered
 	std::shared_ptr<SpriteRenderer> sprite_rendered_player = std::make_shared<SpriteRenderer>(WindowManager::GetRenderer());
 
-	//sprite_rendered_player->SetImage("./assets/player/player_down.png");
+	sprite_rendered_player->SetImage("./assets/player/player_down.png");
+
+	sprite_rendered_player->width_ = 32;
+	sprite_rendered_player->height_ = 64;
 
 	player->AddComponent(sprite_rendered_player);
 
@@ -97,7 +95,7 @@ void SetUpPlayer() {
 	weapon->AddComponent(std::make_shared<BoxCollider>());
 
 	player->AddChild(weapon);
-	player->AddChild(std::make_shared<GameObject>("Backack"));
+	player->AddChild(std::make_shared<GameObject>("Backpack"));
 	player->AddChild(std::make_shared<GameObject>("Bow"));
 	player->AddChild(std::make_shared<GameObject>("Food"));
 
@@ -131,30 +129,8 @@ void SetUpWall() {
 	MindEngine::AddGameObject(wall);
 }
 
-int main() {
-	if (!WindowManager::Init("Talon Engine", 800, 600)) {
-		return -1;
-	}
-
-	EditorUIManager editor_ui_manager;
-
-	editor_ui_manager.InitImGui();
-
-	InputSystem::LoadFromJson("./assets/config/input.json");
-	editor_ui_manager.LoadSettings("./settings/editor_settings.json");
-
-	SetUpPlayer();
-
-	SetUpWall();
-
+void Play() {
 	std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> scene = MindEngine::GetAllGameObjects();
-
-	CollisionManager::SetScene(*scene);
-
-	if (scene == nullptr) {
-		LOG_ERROR("Scene is null");
-		return -1;
-	}
 
 	for (auto& object : *scene) {
 		object->Awake();
@@ -164,9 +140,46 @@ int main() {
 		object->Start();
 	}
 
-	player->GetComponent<Animator>()->SetRender(WindowManager::GetRenderer());
+	Console::Info("Play mode started", __FILE__, __LINE__);
+}
+
+int main() {
+	if (!WindowManager::Init("Talon Engine", 800, 600)) {
+		return -1;
+	}
+
+	ComponentFactory::Instance().Register("Animator", &Animator::Create);
+	ComponentFactory::Instance().Register("BoxCollider", &BoxCollider::Create);
+	ComponentFactory::Instance().Register("PlayerController", &PlayerController::Create);
+	ComponentFactory::Instance().Register("Rigidbody", &Rigidbody::Create);
+	ComponentFactory::Instance().Register("SpriteRenderer", &SpriteRenderer::Create);
+	ComponentFactory::Instance().Register("Transform", &Transform::Create);
+	ComponentFactory::Instance().Register("AnimatorStateMachine", &AnimatorStateMachine::Create);
+
+	EditorUIManager editor_ui_manager;
+
+	editor_ui_manager.InitImGui();
+
+	InputSystem::LoadFromJson("./assets/config/input.json");
+	editor_ui_manager.LoadSettings("./settings/editor_settings.json");
+
+	//SetUpPlayer();
+
+	//SetUpWall();
+
+	SceneManager::LoadScene();
+
+	std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> scene = MindEngine::GetAllGameObjects();
+
+	if (scene == nullptr) {
+		LOG_ERROR("Scene is null");
+		return -1;
+	}
+
+	//player->GetComponent<Animator>()->SetRender(WindowManager::GetRenderer());
 
 	bool running = true;
+	bool called_play = false;
 	SDL_Event event;
 
 	while (running) {
@@ -175,14 +188,29 @@ int main() {
 			if (event.type == SDL_QUIT) running = false;
 		}
 
+		if (SceneManager::IsPlaying() && !called_play) {
+			Play();
+			called_play = true;
+		}
+		else if (!SceneManager::IsPlaying()) {
+			called_play = false;
+		}
+
 		editor_ui_manager.InitFrame();
 
 		SDL_SetRenderTarget(WindowManager::GetRenderer(), WindowManager::GetSceneTexture());
 		SDL_SetRenderDrawColor(WindowManager::GetRenderer(), 0, 0, 0, 255);
 		SDL_RenderClear(WindowManager::GetRenderer());
 
-		for (auto& object : *scene) {
-			object->Update();
+		if (SceneManager::IsPlaying()) {
+			for (auto& object : *scene) {
+				object->Update();
+			}
+		}
+		else {
+			for (auto& object : *scene) {
+				object->Render();
+			}
 		}
 
 		for (auto& object : *scene) {
@@ -196,9 +224,10 @@ int main() {
 		InputSystem::Update();
 
 		editor_ui_manager.RenderPanels();
+		editor_ui_manager.RenderImGui();
 
 		InputSystem::LateUpdate();
-		editor_ui_manager.RenderImGui();
+
 		WindowManager::Present();
 
 		SDL_Delay(16);
@@ -209,6 +238,8 @@ int main() {
 	}
 
 	WindowManager::Shutdown();
+
+	//SceneManager::SaveScene();
 
 	editor_ui_manager.SaveSettings("./settings/editor_settings.json");
 

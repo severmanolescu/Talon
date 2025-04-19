@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\sever\source\repos\vcpkg\installed\x64-windows\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\sever\source\repos\vcpkg\installed\x64-windows\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\vcpkg\installed\x64-windows\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\vcpkg\installed\x64-windows\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\sever\source\repos\vcpkg\installed\x64-windows\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\sever\source\repos\vcpkg\installed\x64-windows\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\vcpkg\installed\x64-windows\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\vcpkg\installed\x64-windows\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -112,13 +112,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\sever\source\repos\Talon\Talon\include\EditorUI;C:\Users\sever\source\repos\Talon\Talon\include\Utils\ImGui\backend;C:\Users\sever\source\repos\Talon\Talon\include\Utils\ImGui;C:\Users\sever\source\repos\Talon\Talon\include\Utils;C:\Users\sever\source\repos\Talon\Talon\include;C:\Users\sever\source\repos\Talon\Talon\include\System;C:\Users\sever\source\repos\Talon\Talon\include\Core;C:\Users\sever\source\repos\Talon\Talon\include\Components;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(ProjectDir)\include\Components;$(ProjectDir)\include\Core;$(ProjectDir)\include\EditorUI;$(ProjectDir)\include\System;$(ProjectDir)\include\Utils;$(ProjectDir)\include\Utils\ImGui;$(ProjectDir)\include\Utils\ImGui\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\sever\source\repos\vcpkg\installed\x64-windows\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -130,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\sever\source\repos\Talon\Talon\include\EditorUI;C:\Users\sever\source\repos\Talon\Talon\include\Utils\ImGui\backend;C:\Users\sever\source\repos\Talon\Talon\include\Utils\ImGui;C:\Users\sever\source\repos\Talon\Talon\include;C:\Users\sever\source\repos\Talon\Talon\include\Utils;C:\Users\sever\source\repos\Talon\Talon\include\System;C:\Users\sever\source\repos\Talon\Talon\include\Core;C:\Users\sever\source\repos\Talon\Talon\include\Components;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(ProjectDir)\include\Components;$(ProjectDir)\include\Core;$(ProjectDir)\include\EditorUI;$(ProjectDir)\include\System;$(ProjectDir)\include\Utils;$(ProjectDir)\include\Utils\ImGui;$(ProjectDir)\include\Utils\ImGui\backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -138,7 +138,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -146,10 +146,15 @@
     <ClInclude Include="include\Components\BoxCollider.h" />
     <ClInclude Include="include\Components\Rigidbody.h" />
     <ClInclude Include="include\Components\SpriteRenderer.h" />
+    <ClInclude Include="include\Core\ComponentFactory.h" />
     <ClInclude Include="include\Core\GameObject.h" />
+    <ClInclude Include="include\Core\IComponentLifecycle.h" />
+    <ClInclude Include="include\Core\ISerializable.h" />
     <ClInclude Include="include\Core\MindCore.h" />
     <ClInclude Include="include\Core\MindEngine.h" />
+    <ClInclude Include="include\Core\SceneManager.h" />
     <ClInclude Include="include\Core\Transform.h" />
+    <ClInclude Include="include\Core\UIUtils.h" />
     <ClInclude Include="include\EditorUI\ConsolePanel.h" />
     <ClInclude Include="include\EditorUI\EditorUIManager.h" />
     <ClInclude Include="include\EditorUI\GamePanel.hpp" />
@@ -175,6 +180,7 @@
     <ClInclude Include="include\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\Core\SceneManager.cpp" />
     <ClCompile Include="include\Utils\ImGui\backend\imgui_impl_sdl2.cpp" />
     <ClCompile Include="include\Utils\ImGui\backend\imgui_impl_sdlrenderer2.cpp" />
     <ClCompile Include="include\Utils\ImGui\imgui.cpp" />
@@ -187,8 +193,11 @@
     <ClCompile Include="src\Components\Rigidbody.cpp" />
     <ClCompile Include="src\Components\SpriteRenderer.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
+    <ClCompile Include="src\Core\IComponentLifecycle.cpp" />
     <ClCompile Include="src\Core\MindCore.cpp" />
     <ClCompile Include="src\Core\MindEngine.cpp" />
+    <ClCompile Include="src\Core\Transform.cpp" />
+    <ClCompile Include="src\Core\UIUtils.cpp" />
     <ClCompile Include="src\EditorUI\ConsolePanel.cpp" />
     <ClCompile Include="src\EditorUI\EditorUIManager.cpp" />
     <ClCompile Include="src\EditorUI\GamePanel.cpp" />
@@ -201,12 +210,13 @@
     <ClCompile Include="src\System\Console.cpp" />
     <ClCompile Include="src\System\InputSystem.cpp" />
     <ClCompile Include="src\System\WindowManager.cpp" />
-    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\config\input.json" />
     <None Include="assets\config\player\animation_state.json" />
+    <None Include="assets\scene.json" />
     <None Include="settings\editor_settings.json" />
+    <None Include="test.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\player\grass.png" />

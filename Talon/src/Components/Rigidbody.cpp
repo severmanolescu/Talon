@@ -114,3 +114,41 @@ void Rigidbody::DrawUI(){
        
 	EndDraw();
 }
+
+void Rigidbody::Serialize(nlohmann::json& json){
+	nlohmann::json rigidbody;
+
+	rigidbody["type"] = "Rigidbody";
+
+	rigidbody["data"]["mass"] = mass_;
+	rigidbody["data"]["gravity"] = gravity_;
+	rigidbody["data"]["max velocity"] = max_velocity_;
+	rigidbody["data"]["use gravity"] = use_gravity_;
+	rigidbody["data"]["is kinematic"] = is_kinematic_;
+
+	rigidbody["active"] = active_;
+
+	json.push_back(rigidbody);
+}
+
+void Rigidbody::Deserialize(const nlohmann::json& json){
+	if (json.contains("mass")) {
+		mass_ = json["mass"];
+	}
+
+	if (json.contains("gravity")) {
+		gravity_ = json["gravity"];
+	}
+
+	if (json.contains("max velocity")) {
+		max_velocity_ = json["max velocity"];
+	}
+
+	if (json.contains("use gravity")) {
+		use_gravity_ = json["use gravity"];
+	}
+
+	if (json.contains("kinematic")) {
+		is_kinematic_ = json["kinematic"];
+	}
+}

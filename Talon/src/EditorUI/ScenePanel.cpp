@@ -5,7 +5,7 @@
 #include "imgui.h"
 
 void ScenePanel::Render(){
-	ImGui::Begin("Scene");
+	ImGui::Begin("ScenePanel");
 
 	ImVec2 available_size = ImGui::GetContentRegionAvail();
 

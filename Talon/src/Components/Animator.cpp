@@ -9,6 +9,8 @@ void Animator::Awake() {
 
 	sprite_renderer_ = game_object_->GetComponent<SpriteRenderer>();
 	animator_state_machine_ = game_object_->GetComponent<AnimatorStateMachine>();
+
+    renderer_ = WindowManager::GetRenderer();
 }
 
 void Animator::UpdateFrames(){
@@ -92,6 +94,46 @@ void Animator::DrawUI(){
         "Rows",
         &spritesheet_rows
     );
+
+    DrawFloatControl("Frame Duration", &frame_duration_);
     
 	EndDraw();
+}
+
+void Animator::Serialize(nlohmann::json& json){
+    nlohmann::json animator;
+
+    animator["type"] = "Animator";
+
+    animator["data"]["frame"] =
+    {
+        {"width", frame_width_},
+        {"height", frame_height_},
+        {"duration", frame_duration_}
+    };
+
+    animator["data"]["spritesheet"] =
+    {
+        {"columns", spritesheet_columns_},
+        {"rows", spritesheet_rows}
+    };
+
+    animator["active"] = active_;
+
+    json.push_back(animator);
+}
+
+void Animator::Deserialize(const nlohmann::json& json){
+    if (json.contains("frame"))
+    {
+        frame_width_ = json["frame"]["width"];
+        frame_height_ = json["frame"]["height"];
+        frame_duration_ = json["frame"]["duration"];
+    }
+
+    if (json.contains("spritesheet"))
+    {
+        spritesheet_columns_ = json["spritesheet"]["columns"];
+        spritesheet_rows = json["spritesheet"]["rows"];
+    }
 }

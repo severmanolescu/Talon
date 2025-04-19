@@ -23,6 +23,8 @@ void SpriteRenderer::SetImage(const std::string& path) {
     if (!texture_) {
         std::cerr << "[SpriteRenderer] Failed to create texture: " << path << "\n";
     }
+
+    image_path = path;
 }
 
 void SpriteRenderer::SetSourceRect(const SDL_Rect& rect) {
@@ -41,26 +43,24 @@ void SpriteRenderer::ClearSourceRect() {
 
 void SpriteRenderer::Awake(){
     ui_frame_height_ = 6;
-
-	transform_ = game_object_->GetTransform();
 }
 
-void SpriteRenderer::Update() {
-	if (!transform_ || !renderer_) {
-		return;
-	}
+void SpriteRenderer::Render(){
+    if (!renderer_) {
+     return;
+    }
 
-	SDL_Rect dest;
+    SDL_Rect dest;
 
-	Vector2 relative_position = game_object_->GetTransform()->GetWorldPosition();
+    Vector2 relative_position = game_object_->GetTransform()->GetWorldPosition();
 
-	dest.x = static_cast<int>(pivot_.x + relative_position.x);
-	dest.y = static_cast<int>(pivot_.y + relative_position.y);
+    dest.x = static_cast<int>(pivot_.x + relative_position.x);
+    dest.y = static_cast<int>(pivot_.y + relative_position.y);
 
-    dest.w = static_cast<int>(width_ * transform_->scale_.x);
-    dest.h = static_cast<int>(height_ * transform_->scale_.y);
+    dest.w = static_cast<int>(width_ * game_object_->GetTransform()->scale_.x);
+    dest.h = static_cast<int>(height_ * game_object_->GetTransform()->scale_.y);
 
-	// TO-DO: implement pivot
+    // TO-DO: implement pivot
     //SDL_SetRenderDrawColor(renderer_, 255, 0, 0, 255);
 
     //SDL_RenderDrawPoint(renderer_, dest.x, dest.y);
@@ -77,6 +77,10 @@ void SpriteRenderer::Update() {
     }
 }
 
+void SpriteRenderer::Update() {
+    Render();
+}
+
 void SpriteRenderer::DrawUI(){
     BeginDraw("SpriteRenderer");
 
@@ -91,4 +95,48 @@ void SpriteRenderer::DrawUI(){
 	DrawVector2Control("Pivot", pivot_);
 
     EndDraw();
+}
+void SpriteRenderer::Serialize(nlohmann::json& json) {
+    nlohmann::json sprite_renderer;
+
+    sprite_renderer["type"] = "SpriteRenderer";
+
+    sprite_renderer["data"]["sprite"] =
+    {
+        {"width", width_},
+        {"height", height_}
+    };
+
+    sprite_renderer["data"]["pivot"] =
+    {
+        {"x", pivot_.x},
+        {"y", pivot_.y}
+    };
+
+    sprite_renderer["data"]["image"] = image_path;
+
+    sprite_renderer["active"] = active_;
+
+    json.push_back(sprite_renderer);
+}
+
+void SpriteRenderer::Deserialize(const nlohmann::json& json) {
+    if (json.contains("sprite"))
+    {
+        width_ = json["sprite"]["width"];
+        height_ = json["sprite"]["height"];
+    }
+
+    if (json.contains("pivot"))
+    {
+        pivot_ =
+        {
+            json["pivot"]["x"],
+            json["pivot"]["y"]
+        };
+    }
+
+    if (json.contains("image")) {
+        SetImage(json["image"]);
+    }
 }
