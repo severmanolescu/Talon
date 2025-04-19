@@ -188,25 +188,12 @@ int main() {
 			if (event.type == SDL_QUIT) running = false;
 		}
 
-		if (InputSystem::GetKeyDown("Pause")) {
-			if (SceneManager::IsPlaying()) {
-				SceneManager::SetRunningMode(EngineMode::Edit);
-				called_play = false;
-
-				MindEngine::RemoveAllGameObjects();
-
-				SceneManager::LoadScene();
-			}
-			else {
-				SceneManager::SetRunningMode(EngineMode::Play);
-
-				SceneManager::SaveScene();
-			}
-		}
-
 		if (SceneManager::IsPlaying() && !called_play) {
 			Play();
 			called_play = true;
+		}
+		else if (!SceneManager::IsPlaying()) {
+			called_play = false;
 		}
 
 		editor_ui_manager.InitFrame();
@@ -237,9 +224,10 @@ int main() {
 		InputSystem::Update();
 
 		editor_ui_manager.RenderPanels();
+		editor_ui_manager.RenderImGui();
 
 		InputSystem::LateUpdate();
-		editor_ui_manager.RenderImGui();
+
 		WindowManager::Present();
 
 		SDL_Delay(16);

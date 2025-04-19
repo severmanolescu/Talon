@@ -49,6 +49,14 @@ public:
     static void ResizeSceneTexture(int width, int height);
 
     /**
+     * @brief Resizes the game texture.
+     *
+     * @param width New width.
+     * @param height New height.
+     */
+    static void ResizeGameTexture(int width, int height);
+
+    /**
      * @brief Gets the SDL renderer.
      *
      * @return Pointer to SDL_Renderer.
@@ -75,6 +83,15 @@ public:
         return scene_texture_;
     }
 
+    /**
+     * @brief Gets the current game render target texture.
+     *
+     * @return Pointer to SDL_Texture used for game rendering.
+     */
+    static SDL_Texture* GetGameTexture() {
+        return scene_texture_;
+    }
+
 private:
     /// Pointer to SDL_Window.
     static inline SDL_Window* window_ = nullptr;
@@ -84,4 +101,7 @@ private:
 
     /// Texture used as off-screen render target for scene panel.
     static inline SDL_Texture* scene_texture_ = nullptr;
+
+    /// Texture used to render target for game panel.
+    static inline SDL_Texture* game_texture_ = nullptr;
 };
