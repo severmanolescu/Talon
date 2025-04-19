@@ -8,8 +8,19 @@
 #include <vector>
 #include <memory>
 
+/**
+ * @brief Static class responsible for handling collision checks between GameObjects.
+ */
 class CollisionManager {
 public:
+	/**
+	 * @brief Checks whether the given predicted rectangle collides with any other collider in the scene.
+	 *
+	 * @param source The GameObject initiating the collision check (ignored in the comparison).
+	 * @param predictedRect The rectangle representing the future position/size of the source.
+	 * @return true If a collision is detected with any other GameObject.
+	 * @return false If no collision is detected.
+	 */
 	static bool CheckCollision(GameObject* source, const SDL_Rect& predictedRect) {
 		std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> scene = MindEngine::GetAllGameObjects();
 

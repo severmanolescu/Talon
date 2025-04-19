@@ -6,6 +6,9 @@
 
 struct AnimatorStateTransition;
 
+/**
+ * @brief Defines a condition that determines a transition between states or animations.
+ */
 struct TransitionCondition {
 	std::string trigger;
 
@@ -13,11 +16,17 @@ struct TransitionCondition {
 	std::variant<std::monostate, bool, int, float> expected_value;
 };
 
+/**
+ * @brief Event that can be triggered during an animation frame.
+ */
 struct AnimationEvent {
 	int frame = -1;
 	std::function<void()> callback;
 };
 
+/**
+ * @brief Represents a single animation with transitions and events.
+ */
 struct Animation {
 	TransitionCondition contition;
 
@@ -34,6 +43,9 @@ struct Animation {
 	std::vector<AnimationEvent> events;
 };
 
+/**
+ * @brief Represents a state within the animator state machine.
+ */
 struct AnimatorState {
 	std::string name;
 
@@ -42,12 +54,18 @@ struct AnimatorState {
 	std::vector<AnimatorStateTransition> transitions;
 };
 
+/**
+ * @brief Defines a transition between two animator states.
+ */
 struct AnimatorStateTransition {
 	TransitionCondition condition;
 
 	AnimatorState* target_state = nullptr;
 };
 
+/**
+ * @brief Controls state-driven animation logic through triggers, variables, and transitions.
+ */
 class AnimatorStateMachine : public MindCore {
 public:
 	AnimatorStateMachine() {
@@ -57,6 +75,7 @@ public:
 	void Awake() override;
 	void Update() override;
 
+	/// State and animation management
 	void AddState(const AnimatorState&);
 	void SetState(const std::string&);
 	void Trigger(const std::string&);
@@ -78,6 +97,7 @@ public:
 
 	void AddTriggerCallback(const std::string animation_name, int frame, std::function<void()> callback);
 
+	/// Condition variable setters/getters
 	void SetBool(const std::string& name, bool value);
 	bool GetBool(const std::string& name);
 
@@ -89,6 +109,7 @@ public:
 
 	void LoadFromJson(const std::string& path);
 
+	/// Serialization
 	void Serialize(nlohmann::json& json) override;
 	void Deserialize(const nlohmann::json& json) override;
 
