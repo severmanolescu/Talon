@@ -25,7 +25,7 @@ void SceneManager::SaveScene(){
 		file << data.dump(4);
 }
 
-void SceneManager::LoadScene(){
+void SceneManager::LoadScene() {
 	std::ifstream file("test.json");
 	if (!file.is_open()) {
 		LOG_ERROR("[SceneManager] Failed to open file: test.json");
@@ -35,33 +35,48 @@ void SceneManager::LoadScene(){
 	nlohmann::json json_data;
 	file >> json_data;
 
+	std::unordered_map<std::string, std::shared_ptr<GameObject>> object_map;
+
 	for (const auto& game_object : json_data["game_objects"]) {
-		std::shared_ptr<GameObject> object = std::make_shared<GameObject>(game_object["name"], game_object["uuid"]);
-		
+		std::string name = game_object["name"];
+		std::string uuid = game_object["uuid"];
+
+		auto object = std::make_shared<GameObject>(name, uuid);
+
 		for (const auto& component : game_object["components"]) {
 			if (component.contains("data")) {
 				if (component["type"] == "Transform") {
 					object->GetTransform()->Deserialize(component["data"]);
-
-					if (component.contains("active")) {
-						object->GetTransform()->active_ = component["active"];
-					}
-
+					if (component.contains("active")) object->GetTransform()->active_ = component["active"];
 					continue;
 				}
-				std::shared_ptr<MindCore> new_component = ComponentFactory::Instance().Create(component["type"]);
+				auto new_component = ComponentFactory::Instance().Create(component["type"]);
+				if (!new_component) continue;
 
 				new_component->Deserialize(component["data"]);
-
-				if (component.contains("active")) {
-					new_component->active_ = component["active"];
-				}
+				if (component.contains("active")) new_component->active_ = component["active"];
 
 				object->AddComponent(new_component);
 			}
 		}
 
-		MindEngine::AddGameObject(object);
+		object_map[uuid] = object;
 	}
 
+	for (const auto& game_object : json_data["game_objects"]) {
+		std::string uuid = game_object["uuid"];
+		auto object = object_map[uuid];
+
+		if (game_object.contains("parent") && !game_object["parent"].is_null()) {
+			std::string parent_uuid = game_object["parent"];
+			auto parent = object_map[parent_uuid];
+			parent->AddChild(object);
+		}
+	}
+
+	for (const auto& [uuid, object] : object_map) {
+		if (!object->HasParent()) {
+			MindEngine::AddGameObject(object);
+		}
+	}
 }

@@ -239,7 +239,7 @@ int main() {
 
 	WindowManager::Shutdown();
 
-	//SceneManager::SaveScene();
+	SceneManager::SaveScene();
 
 	editor_ui_manager.SaveSettings("./settings/editor_settings.json");
 

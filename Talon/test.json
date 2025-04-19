@@ -155,6 +155,7 @@
                 }
             ],
             "name": "Weapon",
+            "parent": "8af36ed67add31df6075efda580b3049",
             "uuid": "d6bf8090dc9566a80406e010ddd99267"
         },
         {
@@ -181,6 +182,7 @@
                 }
             ],
             "name": "Backpack",
+            "parent": "8af36ed67add31df6075efda580b3049",
             "uuid": "de837fbe3ccb6db051e47adf734c8c0a"
         },
         {
@@ -207,6 +209,7 @@
                 }
             ],
             "name": "Bow",
+            "parent": "8af36ed67add31df6075efda580b3049",
             "uuid": "1a1c207663b2ac6f6333259586f72f13"
         },
         {
@@ -233,6 +236,7 @@
                 }
             ],
             "name": "Food",
+            "parent": "8af36ed67add31df6075efda580b3049",
             "uuid": "8e543d0ad31af674078dbe9b0bfe0f95"
         },
         {
@@ -290,6 +294,33 @@
             ],
             "name": "Wall",
             "uuid": "6f13b90c3fbf5aed932266819e557821"
+        },
+        {
+            "active": true,
+            "components": [
+                {
+                    "active": true,
+                    "data": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relative position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "Transform"
+                }
+            ],
+            "name": "Test Object",
+            "parent": "6f13b90c3fbf5aed932266819e557821",
+            "uuid": "b20e9ad455acc43c6b21f357748dd07d"
         }
     ]
 }
