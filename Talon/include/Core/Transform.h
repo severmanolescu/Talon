@@ -71,6 +71,8 @@ public:
 	 */
 	void Deserialize(const nlohmann::json& json) override;
 
+	/// Returns the name of the component type.
+	const char* GetTypeName() const override { return "Transform"; }
 
 	/**
 	 * @brief Macro to register this component with the factory.

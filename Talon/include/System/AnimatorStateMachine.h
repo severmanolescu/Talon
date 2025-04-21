@@ -113,6 +113,9 @@ public:
 	void Serialize(nlohmann::json& json) override;
 	void Deserialize(const nlohmann::json& json) override;
 
+	/// Returns the name of the component type.
+	const char* GetTypeName() const override { return "AnimatorStateMachine"; }
+
 	REGISTER_COMPONENT(AnimatorStateMachine)
 private:
 	std::shared_ptr<Animator> animator_;

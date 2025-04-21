@@ -64,4 +64,14 @@ public:
 	 * @return A shared pointer to a new instance of the component.
 	 */
 	virtual std::shared_ptr<MindCore> Create();
+
+	/**
+	 * @brief Returns the name of the component type.
+	 *
+	 * Used for identifying and comparing component types at runtime,
+	 * especially useful for serialization and editor tools.
+	 *
+	 * @return The name of the component type as a C-style string.
+	 */
+	virtual const char* GetTypeName() const = 0;
 };

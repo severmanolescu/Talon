@@ -7,8 +7,8 @@
                     "active": true,
                     "data": {
                         "position": {
-                            "x": 100.0,
-                            "y": 150.0
+                            "x": 281.0,
+                            "y": 366.0
                         },
                         "relative position": {
                             "x": 0.0,
@@ -60,12 +60,12 @@
                     "data": {
                         "frame": {
                             "duration": 0.15000000596046448,
-                            "height": 16,
+                            "height": 32,
                             "width": 16
                         },
                         "spritesheet": {
-                            "columns": 0,
-                            "rows": 0
+                            "columns": 6,
+                            "rows": 1
                         }
                     },
                     "type": "Animator"
@@ -73,7 +73,7 @@
                 {
                     "active": true,
                     "data": {
-                        "image": "./assets/player/player_down.png",
+                        "image": "assets/player/player_idle_right.png",
                         "pivot": {
                             "x": 0.5,
                             "y": 0.5
@@ -266,7 +266,7 @@
                     "data": {
                         "draw debug": true,
                         "offset": {
-                            "x": 0.0,
+                            "x": 100.0,
                             "y": 0.0
                         },
                         "scale": {
@@ -316,6 +316,21 @@
                         }
                     },
                     "type": "Transform"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "draw debug": true,
+                        "offset": {
+                            "x": 50.0,
+                            "y": 0.0
+                        },
+                        "scale": {
+                            "height": 50,
+                            "width": 50
+                        }
+                    },
+                    "type": "BoxCollider"
                 }
             ],
             "name": "Test Object",

@@ -5,6 +5,8 @@
 
 #include "iostream"
 
+/// @todo Fix the collision with child objects
+
 void Rigidbody::Awake() {
 	ui_frame_height_ = 15.5;
 

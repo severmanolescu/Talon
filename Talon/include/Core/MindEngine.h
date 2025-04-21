@@ -63,11 +63,9 @@ public:
 	 * @return Shared pointer to a vector of GameObjects.
 	 */
 	static std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> GetAllGameObjects();
-
 private:
 	/**
 	 * @brief List of all root-level GameObjects in the scene.
 	 */
 	static std::shared_ptr<std::vector<std::shared_ptr<GameObject>>> game_objects_;
-
 };

@@ -47,6 +47,7 @@ public:
      */
     void Register(const std::string& name, ComponentCreator creator) {
         creators_[name] = creator;
+        component_names_.push_back(name);
     }
 
     /**
@@ -61,7 +62,22 @@ public:
         return nullptr;
     }
 
+    /**
+     * @brief Get all components name in the scene.
+     *
+     * @return A vector of string with all the available components.
+     */
+    const std::vector<std::string>& GetComponentNames() const {
+        return component_names_;
+    }
+
 private:
     /// Internal map of registered creators.
     std::unordered_map<std::string, ComponentCreator> creators_;
+
+    /**
+     * @brief List of all root-level GameObjects in the scene
+     * stored for the inspector.
+     */
+    std::vector<std::string> component_names_;
 };

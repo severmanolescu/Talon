@@ -76,6 +76,9 @@ public:
 	/// Loads Animator state from JSON.
 	void Deserialize(const nlohmann::json& json) override;
 
+	/// Returns the name of the component type.
+	const char* GetTypeName() const override { return "Animator"; }
+
 	REGISTER_COMPONENT(Animator)
 private:
 	/// Optional AnimatorStateMachine to manage transitions.

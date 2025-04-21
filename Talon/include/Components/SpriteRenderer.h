@@ -104,6 +104,9 @@ public:
 	 */
 	void Deserialize(const nlohmann::json& json) override;
 
+	/// Returns the name of the component type.
+	const char* GetTypeName() const override { return "SpriteRenderer"; }
+
 	REGISTER_COMPONENT(SpriteRenderer)
 private:
 	/// SDL renderer used for drawing.
