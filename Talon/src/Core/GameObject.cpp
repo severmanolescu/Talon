@@ -50,6 +50,8 @@ void GameObject::Start() {
 	}
 }
 
+
+
 void GameObject::Update() {
 	if (!active_) return;
 
@@ -61,12 +63,7 @@ void GameObject::Update() {
 		child->Update();
 	}
 
-	for (auto& component : to_remove_components_) {
-		auto it = std::remove(components_.begin(), components_.end(), component);
-		if (it != components_.end()) {
-			components_.erase(it, components_.end());
-		}
-	}
+	CheckForRemovableComponents();
 }
 
 void GameObject::OnDestroy() {
@@ -105,6 +102,19 @@ void GameObject::Render(){
 	for (auto& child : childrens_) {
 		child->Render();
 	}
+
+	CheckForRemovableComponents();
+}
+
+void GameObject::CheckForRemovableComponents(){
+	for (auto& component : to_remove_components_) {
+		auto it = std::remove(components_.begin(), components_.end(), component);
+		if (it != components_.end()) {
+			components_.erase(it, components_.end());
+		}
+	}
+
+	to_remove_components_.clear();
 }
 
 void GameObject::Serialize(nlohmann::json& json)

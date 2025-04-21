@@ -25,6 +25,8 @@ public:
 	 * @brief Constructs a BoxCollider and sets the execution priority.
 	 */
 	BoxCollider() {
+		ui_frame_height_ = 6.6f;
+
 		priority = 5;
 	}
 

@@ -54,6 +54,10 @@ public:
     /// Renderer used by Animator (if needed).
     SDL_Renderer* renderer_ = nullptr;
 
+    PlayerController() {
+        ui_frame_height_ = 8.0f;
+    }
+
     /// Called when component is initialized.
     void Awake() override;
 

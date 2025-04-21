@@ -89,6 +89,9 @@ public:
 	/// Renders visual content (e.g. sprites).
 	void Render();
 
+	/// Delete the desired components 
+	void CheckForRemovableComponents();
+
 	/**
 	 * @brief Serializes the GameObject to JSON format.
 	 */

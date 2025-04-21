@@ -41,10 +41,6 @@ void SpriteRenderer::ClearSourceRect() {
     use_source_rect_ = false;
 }
 
-void SpriteRenderer::Awake(){
-    ui_frame_height_ = 6;
-}
-
 void SpriteRenderer::Render(){
     if (!renderer_) {
      return;

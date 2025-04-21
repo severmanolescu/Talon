@@ -6,8 +6,6 @@
 #include "iostream"
 
 void PlayerController::Awake() {
-	ui_frame_height_ = 8.0f;
-
 	rigidbody_ = game_object_->GetComponent<Rigidbody>();
 
 	last_state_ = std::make_pair(animation_state_, direction_);

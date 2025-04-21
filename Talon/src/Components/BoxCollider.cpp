@@ -86,7 +86,5 @@ void BoxCollider::Deserialize(const nlohmann::json& json){
 }
 
 void BoxCollider::Awake(){
-	ui_frame_height_ = 6.6f;
-
 	transform_ = game_object_->GetTransform();
 }

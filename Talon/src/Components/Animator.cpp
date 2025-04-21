@@ -5,8 +5,6 @@
 #include "iostream"
 
 void Animator::Awake() {
-    ui_frame_height_ = 6;
-
 	sprite_renderer_ = game_object_->GetComponent<SpriteRenderer>();
 	animator_state_machine_ = game_object_->GetComponent<AnimatorStateMachine>();
 

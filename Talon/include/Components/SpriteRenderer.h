@@ -38,6 +38,8 @@ public:
 	SpriteRenderer() {
 		priority = 15;
 
+		ui_frame_height_ = 6;
+
 		renderer_ = WindowManager::GetRenderer();
 	}
 
@@ -71,11 +73,6 @@ public:
 	 * @brief Clears any previously set source rectangle (renders full texture).
 	 */
 	void ClearSourceRect();
-
-	/**
-	 * @brief Called during the Awake lifecycle to prepare resources.
-	 */
-	void Awake() override;
 
 	/**
 	 * @brief Called every frame to update logic.

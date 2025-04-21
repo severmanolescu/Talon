@@ -45,6 +45,8 @@ public:
 	 */
 	Rigidbody() {
 		priority = 10;
+
+		ui_frame_height_ = 15.5;
 	}
 
 	/// Current velocity of the GameObject.

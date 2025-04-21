@@ -44,6 +44,8 @@ public:
 	/// Constructor sets the component execution priority.
 	Animator() {
 		priority = 14;
+
+		ui_frame_height_ = 7.5f;
 	}
 
 	/// Called during component setup.

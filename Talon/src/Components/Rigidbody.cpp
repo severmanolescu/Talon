@@ -8,8 +8,6 @@
 /// @todo Fix the collision with child objects
 
 void Rigidbody::Awake() {
-	ui_frame_height_ = 15.5;
-
 	if (game_object_) {
 		transform_ = game_object_->GetComponent<Transform>();
 
