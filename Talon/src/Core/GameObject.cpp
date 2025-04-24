@@ -1,6 +1,7 @@
 #include "GameObject.h"
 
 #include "AnimatorStateMachine.h"
+#include "ComponentFactory.h"
 #include "Animator.h"
 
 #include <algorithm>
@@ -143,8 +144,38 @@ void GameObject::Serialize(nlohmann::json& json)
 	}
 }
 
-void GameObject::Deserialize(const nlohmann::json& json)
-{
+void GameObject::Deserialize(const nlohmann::json& json){
+	if (json.contains("name"))
+	{
+		name_ = json["name"];
+	}
+
+	if (json.contains("uuid"))
+	{
+		uuid_ = json["uuid"];
+	}
+
+	if (json.contains("active") && json["active"].is_boolean())
+	{
+		active_ = json["active"];
+	}
+
+	for (const auto& component : json["components"]) {
+		if (component.contains("data")) {
+			if (component["type"] == "Transform") {
+				GetTransform()->Deserialize(component["data"]);
+				if (component.contains("active")) GetTransform()->active_ = component["active"];
+				continue;
+			}
+			auto new_component = ComponentFactory::Instance().Create(component["type"]);
+			if (!new_component) continue;
+
+			new_component->Deserialize(component["data"]);
+			if (component.contains("active")) new_component->active_ = component["active"];
+
+			AddComponent(new_component);
+		}
+	}
 }
 
 void GameObject::RemoveComponent(const std::shared_ptr<MindCore> component){

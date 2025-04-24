@@ -38,15 +38,6 @@ public:
 	}
 
 	/**
-	 * @brief Constructs a GameObject with a name and a UUID.
-	 * Used for loading from saved scenes.
-	 */
-	GameObject(const std::string& name, const std::string& uuid) : name_(name), uuid_(uuid) {
-		auto transform = std::make_shared<Transform>();
-		AddComponent(transform);
-	}
-
-	/**
 	 * @brief Adds a component to the GameObject.
 	 */
 	void AddComponent(const std::shared_ptr<MindCore> component);
