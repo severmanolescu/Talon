@@ -1,40 +1,42 @@
 #  Talon Engine
 
-**Talon Engine** is a lightweight, modular 2D game engine written in C++ using SDL2.  
+**Talon Engine** is a lightweight, modular 2D game engine written in C++ using SDL2.
 Inspired by Unity, designed from scratch, and built with pure muscle.
+
+![Game Panel Showcase](assets/Documentation/GamePanel_Showoff.gif)
 
 ## Features
 
-- **GameObject + Component System**  
+- **GameObject + Component System**
   Inspired by Unity, every object is modular, dynamic, and follows a clean lifecycle: `Awake()`, `Start()`, `Update()`.
 
-- **Input System**  
+- **Input System**
   Handles real-time keyboard input (WASD, spacebar, Shift) using SDL2's raw scancodes.
 
-- **Animator with Frame Events**  
+- **Animator with Frame Events**
   Spritesheet-based animation with timing control, direction switching, and frame-triggered callbacks (`std::function` per frame).
 
-- **SpriteRenderer**  
+- **SpriteRenderer**
   Renders sprites with `SetSourceRect()` support for pixel-perfect control over frames and spritesheets.
 
-- **Rigidbody2D Physics**  
-  - Gravity, drag, velocity, acceleration  
-  - `AddForce()` and `ApplyImpulse()`  
+- **Rigidbody2D Physics**
+  - Gravity, drag, velocity, acceleration
+  - `AddForce()` and `ApplyImpulse()`
   - Fully frame-based physics update with jump support
 
-- **BoxCollider**  
+- **BoxCollider**
   Collision detection with offset support, overlap handling.
 
-- **CollisionManager**  
+- **CollisionManager**
   Handles collision resolution and prediction before applying movement.
 
-- **Vector2 Math Library**  
+- **Vector2 Math Library**
   Clean utility methods like `Normalize()`, `Length()`, `Dot()`, and operator overloads.
 
-- **Folder-based project layout**  
+- **Folder-based project layout**
   Organized includes, systems, and components — Visual Studio–friendly.
 
--  **Built From Scratch**  
+-  **Built From Scratch**
   No engine templates, no frameworks — just pure C++ and SDL2.
 
 - **Editor UI with ImGui**
@@ -54,10 +56,38 @@ Inspired by Unity, designed from scratch, and built with pure muscle.
   - Each GameObject has UUID + parent/child hierarchy
   - Automatic component linking and factory-based creation
   - Supports prefab-like behavior
-  
+
 - **Play/Edit Mode Switching**
   - Seamless toggle between editing and runtime mode
   - Automatic scene state restoration after exiting Play mode
+
+## Editor UI
+
+### Hierarchy Panel
+The hierarchy panel displays your scene structure in a tree view, allowing you to organize GameObjects with parent-child relationships.
+
+![Hierarchy Panel](assets/Documentation/Hierarchy_Panel.png)
+
+### Hierarchy Context Menu
+Right-click on any GameObject to access options like rename, delete, duplicate, and more.
+
+![Hierarchy Right Click Menu](assets/Documentation/Hierarchy_Objects_Right_Click.png)
+
+### Inspector Panel
+The inspector allows you to view and edit properties of selected GameObjects and their components in real-time.
+
+![Inspector Panel](assets/Documentation/Inspcect.png)
+
+### Adding Components
+Easily add new components to GameObjects through the inspector's "Add Component" menu.
+
+![Add Component](assets/Documentation/Inspector_Add_Component.png)
+
+### Console Panel
+The console displays log messages with filtering, timestamps, and source file information for debugging.
+
+![Console Panel](assets/Documentation/Console.png)
+
 ## In Progress / Planned
 
 - 🔲 Advanced Prefab system
@@ -112,7 +142,7 @@ git clone https://github.com/severmanolescu/Talon.git
 
 ### 2. Install Dependencies with vcpkg
 
-If you don’t have vcpkg installed yet:
+If you don't have vcpkg installed yet:
 
 ```bash
 git clone https://github.com/microsoft/vcpkg.git
@@ -121,43 +151,43 @@ cd vcpkg
 ```
 Then install SDL2 and SDL2-Image:
 ```bash
-vcpkg install sdl2 sdl2-image 
+vcpkg install sdl2 sdl2-image
 ```
 **⚠️ If both repositories are cloned in the same directory you can skip step 3 and 4!**
 
 ### 3. Open the Project in Visual Studio
 -   Open `Talon.sln`
-    
+
 -   Go to `Project Properties > VC++ Directories`
-    
+
 -   Add:
-    
+
     -   **Include Directories**: `C:\path\to\vcpkg\installed\x64-windows\include`
-        
+
     -   **Library Directories**: `C:\path\to\vcpkg\installed\x64-windows\lib`
-    
+
 ### 4. Link SDL2 Libraries
 
 Go to `Project Properties > Linker > Input > Additional Dependencies`, and add:
 
-`SDL2.lib 
-SDL2main.lib 
-SDL2_image.lib` 
+`SDL2.lib
+SDL2main.lib
+SDL2_image.lib`
 
 **⚠️ Copy all the dlls from  `C:\path\to\vcpkg\installed\x64-windows\bin` next to the `.exe` at runtime**
 
 ## Generate Documentation (Optional)
 
-1. **Install Doxygen**  
-   Download and install from:  
+1. **Install Doxygen**
+   Download and install from:
    [Doxygen](https://www.doxygen.nl/download.html)
 
-2. **Install Graphviz**  
-   Download and install from:  
+2. **Install Graphviz**
+   Download and install from:
    [Graphviz](https://graphviz.org/download/)
 
-3. **Set the DOT path **  
-   After installing Graphviz open `Doxyfile` file and put into `DOT_PATH`:  
+3. **Set the DOT path **
+   After installing Graphviz open `Doxyfile` file and put into `DOT_PATH`:
      `C:\Program Files\Graphviz\bin`
 4. **Generate Docs: `./run_doxygen.bat`**
 5. **Then open html/index.html in your browser.**
