@@ -5,6 +5,15 @@ Inspired by Unity, designed from scratch, and built with pure muscle.
 
 ![Game Panel Showcase](assets/Documentation/GamePanel_Showoff.gif)
 
+## Tech Stack
+
+![C++](https://img.shields.io/badge/C++-17-informational?style=flat&logo=cplusplus&logoColor=white&color=00599C)
+![SDL2](https://img.shields.io/badge/SDL2-informational?style=flat&logo=&logoColor=white&color=1E88E5)
+![ImGui](https://img.shields.io/badge/ImGui-informational?style=flat&logo=&logoColor=white&color=FF6C37)
+![JSON](https://img.shields.io/badge/JSON-nlohmann-informational?style=flat&logo=json&logoColor=white&color=000000)
+![Visual Studio](https://img.shields.io/badge/Visual%20Studio-2022-informational?style=flat&logo=visualstudio&logoColor=white&color=5C2D91)
+![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
+
 ## Features
 
 - **GameObject + Component System**
