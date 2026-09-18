@@ -97,20 +97,7 @@ The console displays log messages with filtering, timestamps, and source file in
 
 ![Console Panel](assets/Documentation/Console.png)
 
-## In Progress / Planned
-
-- 🔲 Advanced Prefab system
-- 🔲 Undo/Redo system
-- 🔲 Realtime profiler
-- 🔲 Light/Shadow 2D support
-- 🔲 Native audio system
-- 🔲 Drag-and-drop parenting in hierarchy
-- ✅ Component delete/duplicate from Inspector
-- ✅ Scene/Game view split
-- ✅ Component serialization with ComponentFactory
-- ✅ RTTR-style registration for custom components (manual for now)
-
-## 💡 How Custom Components Work
+## How Custom Components Work
 
 Custom components inherit from `MindCore` and are registered using:
 
@@ -162,7 +149,7 @@ Then install SDL2 and SDL2-Image:
 ```bash
 vcpkg install sdl2 sdl2-image
 ```
-**⚠️ If both repositories are cloned in the same directory you can skip step 3 and 4!**
+** If both repositories are cloned in the same directory you can skip step 3 and 4!**
 
 ### 3. Open the Project in Visual Studio
 -   Open `Talon.sln`
@@ -183,7 +170,7 @@ Go to `Project Properties > Linker > Input > Additional Dependencies`, and add:
 SDL2main.lib
 SDL2_image.lib`
 
-**⚠️ Copy all the dlls from  `C:\path\to\vcpkg\installed\x64-windows\bin` next to the `.exe` at runtime**
+** Copy all the dlls from  `C:\path\to\vcpkg\installed\x64-windows\bin` next to the `.exe` at runtime**
 
 ## Generate Documentation (Optional)
 
