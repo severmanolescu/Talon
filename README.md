@@ -143,11 +143,11 @@ If you don't have vcpkg installed yet:
 ```bash
 git clone https://github.com/microsoft/vcpkg.git
 cd vcpkg
-./bootstrap-vcpkg.bat
+.\bootstrap-vcpkg.bat
 ```
 Then install SDL2 and SDL2-Image:
 ```bash
-vcpkg install sdl2 sdl2-image
+.\vcpkg install sdl2 sdl2-image
 ```
 ** If both repositories are cloned in the same directory you can skip step 3 and 4!**
 
